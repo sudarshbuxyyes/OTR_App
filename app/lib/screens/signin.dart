@@ -1,3 +1,4 @@
+import 'package:app/screens/otr/otrHome.dart';
 import 'package:app/screens/signup.dart';
 import 'package:app/screens/verificationPage.dart';
 import 'package:flutter/material.dart';
@@ -108,7 +109,11 @@ class _signInState extends State<SignIn> {
               height: Sizer.sbh * 10,
             ),
             InkWell(
-              onTap: () {},
+              onTap: () {
+                Navigator.push(context, MaterialPageRoute(builder: (context) {
+                  return OTRHome();
+                }));
+              },
               child: Container(
                 width: Sizer.sbh * 40,
                 height: Sizer.sbh * 8,
