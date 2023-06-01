@@ -1,5 +1,5 @@
-import 'package:app/screens/emailVerification.dart';
-import 'package:app/screens/otpVerification.dart';
+import 'package:app/screens/auth/emailVerification.dart';
+import 'package:app/screens/auth/otpVerification.dart';
 import 'package:app/utils/Sizer.dart';
 import 'package:flutter/material.dart';
 

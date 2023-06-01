@@ -1,6 +1,5 @@
+import 'package:app/utils/Sizer.dart';
 import 'package:flutter/material.dart';
-
-import '../utils/Sizer.dart';
 
 class EmailVerification extends StatefulWidget {
   const EmailVerification({Key? key}) : super(key: key);

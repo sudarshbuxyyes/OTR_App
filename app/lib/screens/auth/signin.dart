@@ -1,8 +1,8 @@
 import 'package:app/screens/otr/otrHome.dart';
-import 'package:app/screens/signup.dart';
-import 'package:app/screens/verificationPage.dart';
+import 'package:app/screens/auth/signup.dart';
+import 'package:app/screens/auth/verificationPage.dart';
+import 'package:app/utils/Sizer.dart';
 import 'package:flutter/material.dart';
-import '../utils/Sizer.dart';
 
 class SignIn extends StatefulWidget {
   const SignIn({Key? key}) : super(key: key);

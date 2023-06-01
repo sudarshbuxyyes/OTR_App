@@ -1,4 +1,4 @@
-import 'package:app/screens/signin.dart';
+import 'package:app/screens/auth/signin.dart';
 import 'package:app/utils/Sizer.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
