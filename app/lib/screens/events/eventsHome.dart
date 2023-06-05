@@ -1,4 +1,5 @@
 import 'package:app/models/Event.dart';
+import 'package:app/screens/events/eventDetails.dart';
 import 'package:app/utils/Sizer.dart';
 import 'package:app/widgets/EventCard.dart';
 import 'package:carousel_slider/carousel_slider.dart';
@@ -166,14 +167,15 @@ class _EventsHomeState extends State<EventsHome> {
               ),
               SizedBox(height: Sizer.sbv * 2),
               Container(
-                  child: Column(
-                children: List.generate(
-                    ongoing_events.length,
-                    (index) => Padding(
-                        padding: EdgeInsets.all(Sizer.sbv),
-                        child: EventCard(
-                            event: ongoing_events[index], showCover: true))),
-              ))
+                child: Column(
+                    children: List.generate(
+                        ongoing_events.length,
+                        (index) => Padding(
+                            padding: EdgeInsets.all(Sizer.sbv),
+                            child: EventCard(
+                                event: ongoing_events[index],
+                                showCover: true)))),
+              )
             ]),
           ),
         ));

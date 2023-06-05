@@ -16,10 +16,10 @@ class ProfilePage extends StatefulWidget {
 class _ProfilePageState extends State<ProfilePage> {
   final List<String> tabs = <String>['STATS', 'ACHIEVEMENTS', 'ACTIVITY'];
   static bool stats_visible = true;
-  static bool achievements_visible = false;
-  static bool activity_visible = false;
-  static bool month_view = true;
+  static List<bool> tabs_visible = [true, false, false];
+  static List<String> tabs_title = ['Statistics', 'Achievements', 'Activity'];
   final List<String> list = <String>['Monthly', 'Weekly'];
+  static int current_tab = 0;
   @override
   Widget build(BuildContext context) {
     String dropdownValue = list.first;
@@ -63,187 +63,195 @@ class _ProfilePageState extends State<ProfilePage> {
             ),
             body: SingleChildScrollView(
                 scrollDirection: Axis.vertical,
-                child: Column(
-                  children: [
-                    Container(
-                        alignment: Alignment.center,
-                        height: Sizer.sbh * 35,
-                        width: Sizer.screenWidth,
-                        child: Stack(children: [
-                          CircleAvatar(
-                            backgroundColor: Colors.white70,
-                            minRadius: Sizer.sbh * 35,
-                            child: CircleAvatar(
-                              radius: Sizer.sbh * 30,
-                              backgroundImage: NetworkImage(
-                                  "https://github.com/sudarshbuxyyes.png?size=250"),
-                            ),
+                child: Column(children: [
+                  Container(
+                      alignment: Alignment.center,
+                      height: Sizer.sbh * 35,
+                      width: Sizer.screenWidth,
+                      child: Stack(children: [
+                        CircleAvatar(
+                          backgroundColor: Colors.white70,
+                          minRadius: Sizer.sbh * 35,
+                          child: CircleAvatar(
+                            radius: Sizer.sbh * 30,
+                            backgroundImage: NetworkImage(
+                                "https://github.com/sudarshbuxyyes.png?size=250"),
                           ),
-                          Align(
-                              alignment: Alignment.bottomCenter,
-                              child: Container(
-                                  width: Sizer.sbh * 20,
-                                  height: Sizer.sbv * 3.5,
-                                  alignment: Alignment.center,
-                                  decoration: BoxDecoration(
-                                      color: Colors.amber[600],
-                                      border: Border(
-                                        bottom: BorderSide(
-                                          color: Colors.white,
-                                          width: 2.0,
-                                        ),
-                                        top: BorderSide(
-                                          color: Colors.white,
-                                          width: 2.0,
-                                        ),
-                                        left: BorderSide(
-                                          color: Colors.white,
-                                          width: 2.0,
-                                        ),
-                                        right: BorderSide(
-                                          color: Colors.white,
-                                          width: 2.0,
-                                        ),
+                        ),
+                        Align(
+                            alignment: Alignment.bottomCenter,
+                            child: Container(
+                                width: Sizer.sbh * 20,
+                                height: Sizer.sbv * 3.5,
+                                alignment: Alignment.center,
+                                decoration: BoxDecoration(
+                                    color: Colors.amber[600],
+                                    border: Border(
+                                      bottom: BorderSide(
+                                        color: Colors.white,
+                                        width: 2.0,
                                       ),
-                                      borderRadius:
-                                          BorderRadius.all(Radius.circular(20)),
-                                      boxShadow: [
-                                        BoxShadow(
-                                          color: Colors.grey.withOpacity(0.5),
-                                          spreadRadius: Sizer.sbh,
-                                          blurRadius: Sizer.sbh * 0.75,
-                                          offset: Offset(0, 3),
-                                        )
-                                      ]),
-                                  child: Text("Lvl. 4",
-                                      textAlign: TextAlign.center,
-                                      style: TextStyle(
-                                          color: Colors.white,
-                                          fontSize: Sizer.fss)))),
-                        ])),
-                    SizedBox(height: Sizer.sbv * 3),
-                    Container(
-                        alignment: Alignment.center,
-                        child: Text(
-                          "Username",
+                                      top: BorderSide(
+                                        color: Colors.white,
+                                        width: 2.0,
+                                      ),
+                                      left: BorderSide(
+                                        color: Colors.white,
+                                        width: 2.0,
+                                      ),
+                                      right: BorderSide(
+                                        color: Colors.white,
+                                        width: 2.0,
+                                      ),
+                                    ),
+                                    borderRadius:
+                                        BorderRadius.all(Radius.circular(20)),
+                                    boxShadow: [
+                                      BoxShadow(
+                                        color: Colors.grey.withOpacity(0.5),
+                                        spreadRadius: Sizer.sbh,
+                                        blurRadius: Sizer.sbh * 0.75,
+                                        offset: Offset(0, 3),
+                                      )
+                                    ]),
+                                child: Text("Lvl. 4",
+                                    textAlign: TextAlign.center,
+                                    style: TextStyle(
+                                        color: Colors.white,
+                                        fontSize: Sizer.fss)))),
+                      ])),
+                  SizedBox(height: Sizer.sbv * 3),
+                  Container(
+                      alignment: Alignment.center,
+                      child: Text(
+                        "Username",
+                        style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                            fontSize: Sizer.fsml,
+                            color: Colors.black),
+                      )),
+                  SizedBox(height: Sizer.sbv * 3),
+                  Container(
+                      alignment: Alignment.center,
+                      decoration: BoxDecoration(
+                          color: Colors.grey.withOpacity(0.3),
+                          borderRadius: BorderRadius.all(Radius.circular(10))),
+                      height: Sizer.sbv * 4,
+                      width: Sizer.sbh * 50,
+                      child: Text("usernamexyz@gmail.com",
+                          textAlign: TextAlign.center,
                           style: TextStyle(
                               fontWeight: FontWeight.bold,
-                              fontSize: Sizer.fsml,
-                              color: Colors.black),
-                        )),
-                    SizedBox(height: Sizer.sbv * 3),
-                    Container(
-                        alignment: Alignment.center,
-                        decoration: BoxDecoration(
-                            color: Colors.grey.withOpacity(0.3),
-                            borderRadius:
-                                BorderRadius.all(Radius.circular(10))),
-                        height: Sizer.sbv * 4,
-                        width: Sizer.sbh * 50,
-                        child: Text("usernamexyz@gmail.com",
-                            textAlign: TextAlign.center,
-                            style: TextStyle(
-                                fontWeight: FontWeight.bold,
-                                fontSize: Sizer.fss,
-                                color: Colors.black.withOpacity(0.6)))),
-                    SizedBox(height: Sizer.sbv * 3),
-                    Container(
+                              fontSize: Sizer.fss,
+                              color: Colors.black.withOpacity(0.6)))),
+                  SizedBox(height: Sizer.sbv * 3),
+                  Container(
+                    width: Sizer.screenWidth,
+                    decoration: BoxDecoration(
+                      border: Border.all(
+                          width: 1, color: Colors.grey.withOpacity(0.3)),
+                      borderRadius:
+                          BorderRadius.vertical(top: Radius.circular(10)),
+                    ),
+                    child: Column(
+                      children: [
+                        SizedBox(height: Sizer.sbv * 2),
+                        Container(
+                          height: Sizer.sbv * 3,
+                          width: Sizer.screenWidth * 0.6,
+                          child: Stack(
+                            children: [
+                              LinearPercentIndicator(
+                                lineHeight: Sizer.sbv * 3,
+                                width: Sizer.screenWidth * 0.6,
+                                barRadius: Radius.circular(10),
+                                percent: 0.7,
+                                backgroundColor: Colors.grey[200],
+                                progressColor: Colors.amber[600],
+                              ),
+                              Positioned(
+                                  left: Sizer.sbh * 5,
+                                  child: Text("4",
+                                      textAlign: TextAlign.center,
+                                      style: TextStyle(
+                                          fontSize: Sizer.fss,
+                                          color: Colors.grey[100]))),
+                              Positioned(
+                                right: Sizer.sbh * 5,
+                                child: Text(
+                                  "5",
+                                  textAlign: TextAlign.center,
+                                  style: TextStyle(
+                                      fontSize: Sizer.fss,
+                                      color: Colors.amber[600]),
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                        SizedBox(height: Sizer.sbv * 1),
+                        Container(
+                            width: Sizer.screenWidth * 0.6,
+                            child: Row(
+                              children: [
+                                SizedBox(width: Sizer.sbh),
+                                Text("XP: 432/500",
+                                    style: TextStyle(
+                                        fontSize: Sizer.fss * 0.7,
+                                        color: Colors.grey,
+                                        fontWeight: FontWeight.bold)),
+                                SizedBox(width: Sizer.sbh * 30),
+                                Text("68 XP to Lvl 5",
+                                    style: TextStyle(
+                                        fontSize: Sizer.fss * 0.7,
+                                        color: Colors.grey,
+                                        fontWeight: FontWeight.bold))
+                              ],
+                            )),
+                        SizedBox(height: Sizer.sbv * 2),
+                      ],
+                    ),
+                  ),
+                  Container(
                       width: Sizer.screenWidth,
                       decoration: BoxDecoration(
                         border: Border.all(
                             width: 1, color: Colors.grey.withOpacity(0.3)),
                         borderRadius:
-                            BorderRadius.vertical(top: Radius.circular(10)),
+                            BorderRadius.vertical(bottom: Radius.circular(10)),
                       ),
-                      child: Column(
-                        children: [
-                          SizedBox(height: Sizer.sbv * 2),
-                          Container(
-                            height: Sizer.sbv * 3,
-                            width: Sizer.screenWidth * 0.6,
-                            child: Stack(
-                              children: [
-                                LinearPercentIndicator(
-                                  lineHeight: Sizer.sbv * 3,
-                                  width: Sizer.screenWidth * 0.6,
-                                  barRadius: Radius.circular(10),
-                                  percent: 0.7,
-                                  backgroundColor: Colors.grey[200],
-                                  progressColor: Colors.amber[600],
-                                ),
-                                Positioned(
-                                    left: Sizer.sbh * 5,
-                                    child: Text("4",
-                                        textAlign: TextAlign.center,
-                                        style: TextStyle(
-                                            fontSize: Sizer.fss,
-                                            color: Colors.grey[100]))),
-                                Positioned(
-                                  right: Sizer.sbh * 5,
-                                  child: Text(
-                                    "5",
-                                    textAlign: TextAlign.center,
-                                    style: TextStyle(
-                                        fontSize: Sizer.fss,
-                                        color: Colors.amber[600]),
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ),
-                          SizedBox(height: Sizer.sbv * 1),
-                          Container(
-                              width: Sizer.screenWidth * 0.6,
-                              child: Row(
-                                children: [
-                                  SizedBox(width: Sizer.sbh),
-                                  Text("XP: 432/500",
-                                      style: TextStyle(
-                                          fontSize: Sizer.fss * 0.7,
-                                          color: Colors.grey,
-                                          fontWeight: FontWeight.bold)),
-                                  SizedBox(width: Sizer.sbh * 30),
-                                  Text("68 XP to Lvl 5",
-                                      style: TextStyle(
-                                          fontSize: Sizer.fss * 0.7,
-                                          color: Colors.grey,
-                                          fontWeight: FontWeight.bold))
-                                ],
-                              )),
-                          SizedBox(height: Sizer.sbv * 2),
-                        ],
-                      ),
-                    ),
-                    Container(
-                        width: Sizer.screenWidth,
-                        decoration: BoxDecoration(
-                          border: Border.all(
-                              width: 1, color: Colors.grey.withOpacity(0.3)),
-                          borderRadius: BorderRadius.vertical(
-                              bottom: Radius.circular(10)),
-                        ),
-                        child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                            children: List.generate(
-                                tabs.length,
-                                (index) => Padding(
-                                    padding: EdgeInsets.all(Sizer.sbh * 4),
-                                    child: InkWell(
-                                        onTap: () {},
-                                        child: Container(
-                                            alignment: Alignment.center,
-                                            child: Text(tabs[index],
-                                                style: TextStyle(
-                                                    fontSize: Sizer.fss,
-                                                    color: Colors
-                                                        .grey[600])))))))),
-                    SizedBox(height: Sizer.sbv * 2),
+                      child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                          children: List.generate(
+                              tabs.length,
+                              (index) => Padding(
+                                  padding: EdgeInsets.all(Sizer.sbh * 4),
+                                  child: InkWell(
+                                      onTap: () {
+                                        setState(() {
+                                          current_tab = index;
+                                          tabs_visible = List.filled(3, false);
+                                          tabs_visible[index] = true;
+                                          print(tabs_visible);
+                                        });
+                                      },
+                                      child: Container(
+                                          alignment: Alignment.center,
+                                          child: Text(tabs[index],
+                                              style: TextStyle(
+                                                  fontSize: Sizer.fss,
+                                                  color: tabs_visible[index]
+                                                      ? Colors.amber
+                                                      : Colors.grey.withOpacity(
+                                                          0.5))))))))),
+                  SizedBox(height: Sizer.sbv * 2),
+                  if (current_tab == 0) ...[
                     Padding(
                         padding:
                             EdgeInsets.symmetric(horizontal: Sizer.sbh * 10),
                         child: Container(
                             alignment: Alignment.centerLeft,
-                            child: Text("Statistics",
+                            child: Text(tabs_title[current_tab],
                                 style: TextStyle(
                                     fontSize: Sizer.fsm,
                                     fontWeight: FontWeight.w600,
@@ -273,12 +281,6 @@ class _ProfilePageState extends State<ProfilePage> {
                                   onChanged: (String? value) {
                                     setState(() {
                                       dropdownValue = value!;
-                                      if (dropdownValue == "Month") {
-                                        month_view = true;
-                                      } else {
-                                        month_view = false;
-                                      }
-                                      print(month_view);
                                     });
                                   },
                                 ),
@@ -317,11 +319,105 @@ class _ProfilePageState extends State<ProfilePage> {
                                 10,
                                 "Month",
                                 context,
-                                month_view)
+                                true)
                           ],
                         ))
-                  ],
-                ))));
+                  ] else if (current_tab == 1) ...[
+                    Padding(
+                        padding:
+                            EdgeInsets.symmetric(horizontal: Sizer.sbh * 10),
+                        child: Container(
+                            alignment: Alignment.centerLeft,
+                            child: Text("Badges (4)",
+                                style: TextStyle(
+                                    fontSize: Sizer.fsm,
+                                    fontWeight: FontWeight.w600,
+                                    color: Colors.black)))),
+                    SizedBox(height: Sizer.sbv * 2),
+                    Container(
+                        height: Sizer.sbv * 10,
+                        child: ListView.builder(
+                          scrollDirection: Axis.horizontal,
+                          itemCount: 4,
+                          itemBuilder: (context, index) {
+                            return Padding(
+                                padding: EdgeInsets.symmetric(
+                                    horizontal: Sizer.sbh * 2),
+                                child: Container(
+                                    width: Sizer.sbv * 10,
+                                    child: Card(
+                                      child: Container(
+                                        child: Image.asset(
+                                          "assets/images/badge.png",
+                                          fit: BoxFit.cover,
+                                        ),
+                                      ),
+                                    )));
+                          },
+                        )),
+                    SizedBox(height: Sizer.sbv * 2),
+                    Padding(
+                        padding:
+                            EdgeInsets.symmetric(horizontal: Sizer.sbh * 10),
+                        child: Container(
+                            alignment: Alignment.centerLeft,
+                            child: Text("Achievements (7)",
+                                style: TextStyle(
+                                    fontSize: Sizer.fsm,
+                                    fontWeight: FontWeight.w600,
+                                    color: Colors.black)))),
+                    SizedBox(height: Sizer.sbv * 2),
+                    Padding(
+                        padding:
+                            EdgeInsets.symmetric(horizontal: Sizer.sbh * 10),
+                        child: Container(
+                          child: Column(
+                              children: List.generate(
+                                  7,
+                                  (index) => Padding(
+                                      padding: EdgeInsets.symmetric(
+                                          vertical: Sizer.sbv),
+                                      child: Row(
+                                        children: [
+                                          Card(
+                                              child: Container(
+                                            width: Sizer.sbv * 5,
+                                            height: Sizer.sbv * 5,
+                                            child: Image.asset(
+                                              "assets/images/off_roading.jpeg",
+                                              fit: BoxFit.cover,
+                                            ),
+                                          )),
+                                          Container(
+                                              child: Column(
+                                            children: [
+                                              Row(
+                                                children: [
+                                                  Text("Achievement Name"),
+                                                  SizedBox(
+                                                      width: Sizer.sbh * 10),
+                                                  Text("+5 XP"),
+                                                ],
+                                              ),
+                                              Text("Unlocked 5 days ago"),
+                                            ],
+                                          )),
+                                        ],
+                                      )))),
+                        ))
+                  ] else ...[
+                    Padding(
+                        padding:
+                            EdgeInsets.symmetric(horizontal: Sizer.sbh * 10),
+                        child: Container(
+                            alignment: Alignment.centerLeft,
+                            child: Text("Activity",
+                                style: TextStyle(
+                                    fontSize: Sizer.fsm,
+                                    fontWeight: FontWeight.w600,
+                                    color: Colors.black)))),
+                  ]
+                ]))));
   }
 }
 
