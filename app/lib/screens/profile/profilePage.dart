@@ -14,10 +14,10 @@ class ProfilePage extends StatefulWidget {
 }
 
 class _ProfilePageState extends State<ProfilePage> {
-  final List<String> tabs = <String>['STATS', 'ACHIEVEMENTS', 'ACTIVITY'];
+  final List<String> tabs = <String>['STATS', 'BADGES', 'ACTIVITY'];
   static bool stats_visible = true;
   static List<bool> tabs_visible = [true, false, false];
-  static List<String> tabs_title = ['Statistics', 'Achievements', 'Activity'];
+  static List<String> tabs_title = ['Statistics', 'Badges', 'Activity'];
   final List<String> list = <String>['Monthly', 'Weekly'];
   static int current_tab = 0;
   @override
@@ -54,9 +54,14 @@ class _ProfilePageState extends State<ProfilePage> {
         child: Scaffold(
             backgroundColor: Colors.white,
             appBar: AppBar(
-              leading: Icon(
-                Icons.chevron_left_rounded,
-                color: Colors.black,
+              leading: InkWell(
+                onTap: () {
+                  Navigator.pop(context);
+                },
+                child: Icon(
+                  Icons.chevron_left_rounded,
+                  color: Colors.black,
+                ),
               ),
               elevation: 0,
               backgroundColor: Colors.white,
@@ -319,7 +324,97 @@ class _ProfilePageState extends State<ProfilePage> {
                                 10,
                                 "Month",
                                 context,
-                                true)
+                                true),
+                          ],
+                        )),
+                    SizedBox(height: Sizer.sbv * 2),
+                    Container(
+                        width: Sizer.screenWidth * 0.8,
+                        height: Sizer.sbv * 12,
+                        child: Column(
+                          children: [
+                            Text("Last Week's Stats:",
+                                textAlign: TextAlign.left,
+                                style: TextStyle(
+                                    fontSize: Sizer.fss * 0.8,
+                                    fontWeight: FontWeight.bold)),
+                            Row(
+                              children: [
+                                CircleAvatar(
+                                  radius: 3,
+                                  backgroundColor: Colors.amber[400],
+                                ),
+                                Text("XP Earned : 432"),
+                              ],
+                            ),
+                            Row(
+                              children: [
+                                CircleAvatar(
+                                  radius: 3,
+                                  backgroundColor: Colors.brown[400],
+                                ),
+                                Text("Distance Travelled : 432"),
+                              ],
+                            ),
+                            Row(
+                              children: [
+                                CircleAvatar(
+                                  radius: 3,
+                                  backgroundColor: Colors.green[400],
+                                ),
+                                Text("Badges : 100 km badge, 200 km badge"),
+                              ],
+                            ),
+                            // SizedBox(height: Sizer.sbv * 2),
+                          ],
+                        ),
+                        decoration: BoxDecoration(
+                            borderRadius: BorderRadius.all(Radius.circular(10)),
+                            border: Border.all(
+                                color: Colors.grey.withOpacity(0.3),
+                                width: 1))),
+                    SizedBox(height: Sizer.sbv * 2),
+                    Container(
+                        width: Sizer.screenWidth * 0.8,
+                        height: Sizer.sbv * 12,
+                        decoration: BoxDecoration(
+                            borderRadius: BorderRadius.all(Radius.circular(10)),
+                            border: Border.all(
+                                color: Colors.grey.withOpacity(0.3), width: 1)),
+                        child: Column(
+                          children: [
+                            Text("Last Month's Stats:",
+                                textAlign: TextAlign.left,
+                                style: TextStyle(
+                                    fontSize: Sizer.fss * 0.8,
+                                    fontWeight: FontWeight.bold)),
+                            Row(
+                              children: [
+                                CircleAvatar(
+                                  radius: 3,
+                                  backgroundColor: Colors.amber[400],
+                                ),
+                                Text("XP Earned : 432"),
+                              ],
+                            ),
+                            Row(
+                              children: [
+                                CircleAvatar(
+                                  radius: 3,
+                                  backgroundColor: Colors.brown[400],
+                                ),
+                                Text("Distance Travelled : 432"),
+                              ],
+                            ),
+                            Row(
+                              children: [
+                                CircleAvatar(
+                                  radius: 3,
+                                  backgroundColor: Colors.green[400],
+                                ),
+                                Text("Badges : 100 km badge, 200 km badge"),
+                              ],
+                            ),
                           ],
                         ))
                   ] else if (current_tab == 1) ...[
@@ -416,6 +511,266 @@ class _ProfilePageState extends State<ProfilePage> {
                                     fontSize: Sizer.fsm,
                                     fontWeight: FontWeight.w600,
                                     color: Colors.black)))),
+                    SizedBox(height: Sizer.sbv * 2),
+                    Column(
+                      children: [
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                          children: [
+                            Padding(
+                                padding: EdgeInsets.all(Sizer.sbh * 3),
+                                child: Container(
+                                    height: Sizer.sbv * 10,
+                                    width: Sizer.sbh * 45,
+                                    child: Row(
+                                      children: [
+                                        Padding(
+                                          padding: EdgeInsets.symmetric(
+                                              horizontal: Sizer.sbh * 2),
+                                          child: CircleAvatar(
+                                            backgroundColor: Colors.red[100],
+                                            child: Icon(Icons.map_outlined,
+                                                color: Colors.red[600]),
+                                          ),
+                                        ),
+                                        Padding(
+                                            padding: EdgeInsets.symmetric(
+                                                horizontal: Sizer.sbh),
+                                            child: Column(
+                                              children: [
+                                                SizedBox(
+                                                  height: Sizer.sbv,
+                                                ),
+                                                Text(
+                                                  "123 km",
+                                                  style: TextStyle(
+                                                      fontWeight:
+                                                          FontWeight.bold,
+                                                      fontSize: Sizer.fsm),
+                                                ),
+                                                Text(
+                                                  "Distance",
+                                                  style: TextStyle(
+                                                    color: Colors.grey,
+                                                    fontSize: Sizer.fss,
+                                                    fontWeight:
+                                                        FontWeight.normal,
+                                                  ),
+                                                ),
+                                                SizedBox(
+                                                  height: Sizer.sbv,
+                                                ),
+                                              ],
+                                            ))
+                                      ],
+                                    ),
+                                    decoration: BoxDecoration(
+                                      color: Colors.white,
+                                      borderRadius:
+                                          BorderRadius.all(Radius.circular(10)),
+                                      boxShadow: [
+                                        BoxShadow(
+                                          color: Colors.grey.withOpacity(0.5),
+                                          spreadRadius: 2,
+                                          blurRadius: 5,
+                                          offset: Offset(0,
+                                              3), // changes position of shadow
+                                        ),
+                                      ],
+                                    ))),
+                            Padding(
+                                padding: EdgeInsets.all(Sizer.sbh * 3),
+                                child: Container(
+                                    height: Sizer.sbv * 10,
+                                    width: Sizer.sbh * 45,
+                                    child: Row(
+                                      children: [
+                                        Padding(
+                                          padding: EdgeInsets.symmetric(
+                                              horizontal: Sizer.sbh * 2),
+                                          child: CircleAvatar(
+                                            backgroundColor: Colors.blue[100],
+                                            child: Icon(Icons.bar_chart_rounded,
+                                                color: Colors.blue[600]),
+                                          ),
+                                        ),
+                                        Padding(
+                                            padding: EdgeInsets.symmetric(
+                                                horizontal: Sizer.sbh),
+                                            child: Column(
+                                              children: [
+                                                SizedBox(
+                                                  height: Sizer.sbv,
+                                                ),
+                                                Text(
+                                                  "#3",
+                                                  style: TextStyle(
+                                                      fontWeight:
+                                                          FontWeight.bold,
+                                                      fontSize: Sizer.fsm),
+                                                ),
+                                                Text(
+                                                  "Leaderboard",
+                                                  style: TextStyle(
+                                                    color: Colors.grey,
+                                                    fontSize: Sizer.fss,
+                                                    fontWeight:
+                                                        FontWeight.normal,
+                                                  ),
+                                                ),
+                                                SizedBox(
+                                                  height: Sizer.sbv,
+                                                ),
+                                              ],
+                                            ))
+                                      ],
+                                    ),
+                                    decoration: BoxDecoration(
+                                      color: Colors.white,
+                                      borderRadius:
+                                          BorderRadius.all(Radius.circular(10)),
+                                      boxShadow: [
+                                        BoxShadow(
+                                          color: Colors.grey.withOpacity(0.5),
+                                          spreadRadius: 2,
+                                          blurRadius: 5,
+                                          offset: Offset(0,
+                                              3), // changes position of shadow
+                                        ),
+                                      ],
+                                    ))),
+                          ],
+                        ),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                          children: [
+                            Padding(
+                                padding: EdgeInsets.all(Sizer.sbh * 3),
+                                child: Container(
+                                    height: Sizer.sbv * 10,
+                                    width: Sizer.sbh * 45,
+                                    child: Row(
+                                      children: [
+                                        Padding(
+                                          padding: EdgeInsets.symmetric(
+                                              horizontal: Sizer.sbh * 2),
+                                          child: CircleAvatar(
+                                            backgroundColor: Colors.green[100],
+                                            child: Icon(Icons.event,
+                                                color: Colors.green[600]),
+                                          ),
+                                        ),
+                                        Padding(
+                                            padding: EdgeInsets.symmetric(
+                                                horizontal: Sizer.sbh),
+                                            child: Column(
+                                              children: [
+                                                SizedBox(
+                                                  height: Sizer.sbv,
+                                                ),
+                                                Text(
+                                                  "13",
+                                                  style: TextStyle(
+                                                      fontWeight:
+                                                          FontWeight.bold,
+                                                      fontSize: Sizer.fsm),
+                                                ),
+                                                Text(
+                                                  "Events Attended",
+                                                  style: TextStyle(
+                                                    color: Colors.grey,
+                                                    fontSize: Sizer.fss,
+                                                    fontWeight:
+                                                        FontWeight.normal,
+                                                  ),
+                                                ),
+                                                SizedBox(
+                                                  height: Sizer.sbv,
+                                                ),
+                                              ],
+                                            ))
+                                      ],
+                                    ),
+                                    decoration: BoxDecoration(
+                                      color: Colors.white,
+                                      borderRadius:
+                                          BorderRadius.all(Radius.circular(10)),
+                                      boxShadow: [
+                                        BoxShadow(
+                                          color: Colors.grey.withOpacity(0.5),
+                                          spreadRadius: 2,
+                                          blurRadius: 5,
+                                          offset: Offset(0,
+                                              3), // changes position of shadow
+                                        ),
+                                      ],
+                                    ))),
+                            Padding(
+                                padding: EdgeInsets.all(Sizer.sbh * 3),
+                                child: Container(
+                                    height: Sizer.sbv * 10,
+                                    width: Sizer.sbh * 45,
+                                    child: Row(
+                                      children: [
+                                        Padding(
+                                          padding: EdgeInsets.symmetric(
+                                              horizontal: Sizer.sbh * 2),
+                                          child: CircleAvatar(
+                                            backgroundColor: Colors.yellow[100],
+                                            child: Icon(Icons.check,
+                                                color: Color.fromRGBO(
+                                                    206, 171, 17, 1)),
+                                          ),
+                                        ),
+                                        Padding(
+                                            padding: EdgeInsets.symmetric(
+                                                horizontal: Sizer.sbh),
+                                            child: Column(
+                                              children: [
+                                                SizedBox(
+                                                  height: Sizer.sbv,
+                                                ),
+                                                Text(
+                                                  "70 %",
+                                                  style: TextStyle(
+                                                      fontWeight:
+                                                          FontWeight.bold,
+                                                      fontSize: Sizer.fsm),
+                                                ),
+                                                Text(
+                                                  "Consistency",
+                                                  style: TextStyle(
+                                                    color: Colors.grey,
+                                                    fontSize: Sizer.fss,
+                                                    fontWeight:
+                                                        FontWeight.normal,
+                                                  ),
+                                                ),
+                                                SizedBox(
+                                                  height: Sizer.sbv,
+                                                ),
+                                              ],
+                                            ))
+                                      ],
+                                    ),
+                                    decoration: BoxDecoration(
+                                      color: Colors.white,
+                                      borderRadius:
+                                          BorderRadius.all(Radius.circular(10)),
+                                      boxShadow: [
+                                        BoxShadow(
+                                          color: Colors.grey.withOpacity(0.5),
+                                          spreadRadius: 2,
+                                          blurRadius: 5,
+                                          offset: Offset(0,
+                                              3), // changes position of shadow
+                                        ),
+                                      ],
+                                    ))),
+                          ],
+                        ),
+                      ],
+                    )
                   ]
                 ]))));
   }
