@@ -1,5 +1,6 @@
 import 'dart:math';
 
+import 'package:app/screens/profile/editProfile.dart';
 import 'package:app/utils/Sizer.dart';
 import 'package:fl_chart/fl_chart.dart';
 
@@ -65,6 +66,20 @@ class _ProfilePageState extends State<ProfilePage> {
               ),
               elevation: 0,
               backgroundColor: Colors.white,
+              actions: [
+                IconButton(
+                  icon: Icon(
+                    Icons.settings,
+                    color: Colors.black,
+                  ),
+                  onPressed: () {
+                    Navigator.push(context,
+                        MaterialPageRoute(builder: (context) {
+                      return const EditProfile();
+                    }));
+                  },
+                )
+              ],
             ),
             body: SingleChildScrollView(
                 scrollDirection: Axis.vertical,
@@ -330,93 +345,164 @@ class _ProfilePageState extends State<ProfilePage> {
                     SizedBox(height: Sizer.sbv * 2),
                     Container(
                         width: Sizer.screenWidth * 0.8,
-                        height: Sizer.sbv * 12,
-                        child: Column(
-                          children: [
-                            Text("Last Week's Stats:",
-                                textAlign: TextAlign.left,
-                                style: TextStyle(
-                                    fontSize: Sizer.fss * 0.8,
-                                    fontWeight: FontWeight.bold)),
-                            Row(
-                              children: [
-                                CircleAvatar(
-                                  radius: 3,
-                                  backgroundColor: Colors.amber[400],
-                                ),
-                                Text("XP Earned : 432"),
-                              ],
-                            ),
-                            Row(
-                              children: [
-                                CircleAvatar(
-                                  radius: 3,
-                                  backgroundColor: Colors.brown[400],
-                                ),
-                                Text("Distance Travelled : 432"),
-                              ],
-                            ),
-                            Row(
-                              children: [
-                                CircleAvatar(
-                                  radius: 3,
-                                  backgroundColor: Colors.green[400],
-                                ),
-                                Text("Badges : 100 km badge, 200 km badge"),
-                              ],
-                            ),
-                            // SizedBox(height: Sizer.sbv * 2),
-                          ],
-                        ),
-                        decoration: BoxDecoration(
-                            borderRadius: BorderRadius.all(Radius.circular(10)),
-                            border: Border.all(
-                                color: Colors.grey.withOpacity(0.3),
-                                width: 1))),
-                    SizedBox(height: Sizer.sbv * 2),
-                    Container(
-                        width: Sizer.screenWidth * 0.8,
-                        height: Sizer.sbv * 12,
                         decoration: BoxDecoration(
                             borderRadius: BorderRadius.all(Radius.circular(10)),
                             border: Border.all(
                                 color: Colors.grey.withOpacity(0.3), width: 1)),
                         child: Column(
                           children: [
-                            Text("Last Month's Stats:",
-                                textAlign: TextAlign.left,
-                                style: TextStyle(
-                                    fontSize: Sizer.fss * 0.8,
-                                    fontWeight: FontWeight.bold)),
-                            Row(
-                              children: [
-                                CircleAvatar(
-                                  radius: 3,
-                                  backgroundColor: Colors.amber[400],
-                                ),
-                                Text("XP Earned : 432"),
-                              ],
+                            Padding(
+                              padding: EdgeInsets.all(Sizer.sbh * 3),
+                              child: Container(
+                                  alignment: Alignment.centerLeft,
+                                  width: Sizer.screenWidth,
+                                  child: Text("Last Week's Stats:",
+                                      textAlign: TextAlign.left,
+                                      style: TextStyle(
+                                          decoration: TextDecoration.underline,
+                                          fontSize: Sizer.fsm * 0.8,
+                                          fontWeight: FontWeight.bold))),
                             ),
-                            Row(
-                              children: [
-                                CircleAvatar(
-                                  radius: 3,
-                                  backgroundColor: Colors.brown[400],
-                                ),
-                                Text("Distance Travelled : 432"),
-                              ],
+                            Padding(
+                              padding: EdgeInsets.symmetric(
+                                  horizontal: Sizer.sbh * 5),
+                              child: Row(
+                                children: [
+                                  CircleAvatar(
+                                    radius: 3,
+                                    backgroundColor: Colors.amber[400],
+                                  ),
+                                  SizedBox(
+                                    width: Sizer.sbh * 2,
+                                  ),
+                                  Text("XP Earned : 432"),
+                                ],
+                              ),
                             ),
-                            Row(
-                              children: [
-                                CircleAvatar(
-                                  radius: 3,
-                                  backgroundColor: Colors.green[400],
-                                ),
-                                Text("Badges : 100 km badge, 200 km badge"),
-                              ],
+                            SizedBox(
+                              height: Sizer.sbv,
+                            ),
+                            Padding(
+                              padding: EdgeInsets.symmetric(
+                                  horizontal: Sizer.sbh * 5),
+                              child: Row(
+                                children: [
+                                  CircleAvatar(
+                                    radius: 3,
+                                    backgroundColor: Colors.brown[400],
+                                  ),
+                                  SizedBox(
+                                    width: Sizer.sbh * 2,
+                                  ),
+                                  Text("Distance Travelled : 432"),
+                                ],
+                              ),
+                            ),
+                            SizedBox(
+                              height: Sizer.sbv,
+                            ),
+                            Padding(
+                              padding: EdgeInsets.symmetric(
+                                  horizontal: Sizer.sbh * 5),
+                              child: Row(
+                                children: [
+                                  CircleAvatar(
+                                    radius: 3,
+                                    backgroundColor: Colors.green[400],
+                                  ),
+                                  SizedBox(
+                                    width: Sizer.sbh * 2,
+                                  ),
+                                  Text("Badges : 100 km badge, 200 km badge"),
+                                ],
+                              ),
+                            ),
+                            SizedBox(
+                              height: Sizer.sbv * 3,
                             ),
                           ],
-                        ))
+                        )),
+                    SizedBox(height: Sizer.sbv * 2),
+                    Container(
+                        width: Sizer.screenWidth * 0.8,
+                        decoration: BoxDecoration(
+                            borderRadius: BorderRadius.all(Radius.circular(10)),
+                            border: Border.all(
+                                color: Colors.grey.withOpacity(0.3), width: 1)),
+                        child: Column(
+                          children: [
+                            Padding(
+                              padding: EdgeInsets.all(Sizer.sbh * 3),
+                              child: Container(
+                                  alignment: Alignment.centerLeft,
+                                  width: Sizer.screenWidth,
+                                  child: Text("Last Month's Stats:",
+                                      textAlign: TextAlign.left,
+                                      style: TextStyle(
+                                          decoration: TextDecoration.underline,
+                                          fontSize: Sizer.fsm * 0.8,
+                                          fontWeight: FontWeight.bold))),
+                            ),
+                            Padding(
+                              padding: EdgeInsets.symmetric(
+                                  horizontal: Sizer.sbh * 5),
+                              child: Row(
+                                children: [
+                                  CircleAvatar(
+                                    radius: 3,
+                                    backgroundColor: Colors.amber[400],
+                                  ),
+                                  SizedBox(
+                                    width: Sizer.sbh * 2,
+                                  ),
+                                  Text("XP Earned : 432"),
+                                ],
+                              ),
+                            ),
+                            SizedBox(
+                              height: Sizer.sbv,
+                            ),
+                            Padding(
+                              padding: EdgeInsets.symmetric(
+                                  horizontal: Sizer.sbh * 5),
+                              child: Row(
+                                children: [
+                                  CircleAvatar(
+                                    radius: 3,
+                                    backgroundColor: Colors.brown[400],
+                                  ),
+                                  SizedBox(
+                                    width: Sizer.sbh * 2,
+                                  ),
+                                  Text("Distance Travelled : 432"),
+                                ],
+                              ),
+                            ),
+                            SizedBox(
+                              height: Sizer.sbv,
+                            ),
+                            Padding(
+                              padding: EdgeInsets.symmetric(
+                                  horizontal: Sizer.sbh * 5),
+                              child: Row(
+                                children: [
+                                  CircleAvatar(
+                                    radius: 3,
+                                    backgroundColor: Colors.green[400],
+                                  ),
+                                  SizedBox(
+                                    width: Sizer.sbh * 2,
+                                  ),
+                                  Text("Badges : 100 km badge, 200 km badge"),
+                                ],
+                              ),
+                            ),
+                            SizedBox(
+                              height: Sizer.sbv * 3,
+                            ),
+                          ],
+                        )),
+                    SizedBox(height: Sizer.sbv * 2),
                   ] else if (current_tab == 1) ...[
                     Padding(
                         padding:
@@ -503,12 +589,12 @@ class _ProfilePageState extends State<ProfilePage> {
                   ] else ...[
                     Padding(
                         padding:
-                            EdgeInsets.symmetric(horizontal: Sizer.sbh * 10),
+                            EdgeInsets.symmetric(horizontal: Sizer.sbh * 5),
                         child: Container(
                             alignment: Alignment.centerLeft,
                             child: Text("Activity",
                                 style: TextStyle(
-                                    fontSize: Sizer.fsm,
+                                    fontSize: Sizer.fsml,
                                     fontWeight: FontWeight.w600,
                                     color: Colors.black)))),
                     SizedBox(height: Sizer.sbv * 2),
@@ -770,7 +856,296 @@ class _ProfilePageState extends State<ProfilePage> {
                           ],
                         ),
                       ],
-                    )
+                    ),
+                    SizedBox(
+                      height: Sizer.sbv * 2,
+                    ),
+                    Padding(
+                      padding: EdgeInsets.symmetric(horizontal: Sizer.sbh * 3),
+                      child: Container(
+                          width: Sizer.screenWidth,
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(10),
+                            color: Colors.amber[500],
+                          ),
+                          child: Column(
+                            children: [
+                              Padding(
+                                padding: EdgeInsets.symmetric(
+                                    vertical: Sizer.sbv * 2,
+                                    horizontal: Sizer.sbh * 4),
+                                child: Container(
+                                    width: Sizer.screenWidth,
+                                    child: Text(
+                                      "Next Quests",
+                                      textAlign: TextAlign.left,
+                                      style: TextStyle(
+                                        color: Colors.white,
+                                        fontSize: Sizer.fss,
+                                        fontWeight: FontWeight.normal,
+                                      ),
+                                    )),
+                              ),
+                              Padding(
+                                  padding: EdgeInsets.symmetric(
+                                    horizontal: Sizer.sbh * 2,
+                                    vertical: Sizer.sbv * 2,
+                                  ),
+                                  child: Row(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
+                                    children: [
+                                      Container(
+                                          child: Row(
+                                        children: [
+                                          Padding(
+                                              padding: EdgeInsets.symmetric(
+                                                  horizontal: Sizer.sbh * 2),
+                                              child: Icon(Icons.waving_hand,
+                                                  color: Colors.white,
+                                                  size: Sizer.fss)),
+                                          Text(
+                                            "Say Hi to 5 people",
+                                            style: TextStyle(
+                                                color: Colors.white,
+                                                fontSize: Sizer.fss),
+                                          )
+                                        ],
+                                      )),
+                                      Container(
+                                        child: Row(
+                                          children: [
+                                            Icon(Icons.star_rounded,
+                                                color: Colors.white,
+                                                size: Sizer.fss),
+                                            Text("20 XP",
+                                                style: TextStyle(
+                                                    color: Colors.white,
+                                                    fontSize: Sizer.fss)),
+                                          ],
+                                        ),
+                                      ),
+                                    ],
+                                  )),
+                              Padding(
+                                padding: EdgeInsets.symmetric(
+                                    horizontal: Sizer.sbh * 2),
+                                child: Divider(
+                                  color: Colors.white,
+                                  thickness: 1,
+                                ),
+                              ),
+                              Padding(
+                                  padding: EdgeInsets.symmetric(
+                                    horizontal: Sizer.sbh * 2,
+                                    vertical: Sizer.sbv * 2,
+                                  ),
+                                  child: Row(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
+                                    children: [
+                                      Container(
+                                          child: Row(
+                                        children: [
+                                          Padding(
+                                              padding: EdgeInsets.symmetric(
+                                                  horizontal: Sizer.sbh * 2),
+                                              child: Icon(Icons.paid_outlined,
+                                                  color: Colors.white,
+                                                  size: Sizer.fss)),
+                                          Text(
+                                            "Go Premium!",
+                                            style: TextStyle(
+                                                color: Colors.white,
+                                                fontSize: Sizer.fss),
+                                          )
+                                        ],
+                                      )),
+                                      Container(
+                                        child: Row(
+                                          children: [
+                                            Icon(Icons.star_rounded,
+                                                color: Colors.white,
+                                                size: Sizer.fss),
+                                            Text("100 XP",
+                                                style: TextStyle(
+                                                    color: Colors.white,
+                                                    fontSize: Sizer.fss)),
+                                          ],
+                                        ),
+                                      ),
+                                    ],
+                                  )),
+                              Padding(
+                                padding: EdgeInsets.symmetric(
+                                    horizontal: Sizer.sbh * 2),
+                                child: Divider(
+                                  color: Colors.white,
+                                  thickness: 1,
+                                ),
+                              ),
+                              Padding(
+                                  padding: EdgeInsets.symmetric(
+                                    horizontal: Sizer.sbh * 2,
+                                    vertical: Sizer.sbv * 2,
+                                  ),
+                                  child: Row(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
+                                    children: [
+                                      Container(
+                                          child: Row(
+                                        children: [
+                                          Padding(
+                                              padding: EdgeInsets.symmetric(
+                                                  horizontal: Sizer.sbh * 2),
+                                              child: Icon(Icons.fireplace,
+                                                  color: Colors.white,
+                                                  size: Sizer.fss)),
+                                          Text(
+                                            "Streak of 5 : Attend 5 Consecutive Events",
+                                            style: TextStyle(
+                                                color: Colors.white,
+                                                fontSize: Sizer.fss),
+                                          )
+                                        ],
+                                      )),
+                                      Container(
+                                        child: Row(
+                                          children: [
+                                            Icon(Icons.star_rounded,
+                                                color: Colors.white,
+                                                size: Sizer.fss),
+                                            Text("50 XP",
+                                                style: TextStyle(
+                                                    color: Colors.white,
+                                                    fontSize: Sizer.fss)),
+                                          ],
+                                        ),
+                                      ),
+                                    ],
+                                  )),
+                              // Padding(
+                              //   padding: EdgeInsets.symmetric(
+                              //       horizontal: Sizer.sbh * 2),
+                              //   child: Divider(
+                              //     color: Colors.white,
+                              //     thickness: 1,
+                              //   ),
+                              // ),
+                              // Padding(
+                              //   padding: EdgeInsets.symmetric(
+                              //     horizontal: Sizer.sbh * 2,
+                              //   ),
+                              //   child: Container(
+                              //       width: Sizer.screenWidth,
+                              //       // color: Colors.blue,
+                              //       child: Text(
+                              //         "See All",
+                              //         textAlign: TextAlign.left,
+                              //         style: TextStyle(
+                              //             color: Colors.white,
+                              //             fontSize: Sizer.fss),
+                              //       )),
+                              // ),
+                              SizedBox(
+                                height: Sizer.sbv,
+                              )
+                            ],
+                          )),
+                    ),
+                    SizedBox(
+                      height: Sizer.sbv * 5,
+                    ),
+                    // Padding(
+                    //     padding:
+                    //         EdgeInsets.symmetric(horizontal: Sizer.sbh * 3),
+                    //     child: Container(
+                    //         width: Sizer.screenWidth,
+                    //         decoration: BoxDecoration(
+                    //             borderRadius: BorderRadius.circular(10),
+                    //             color: Colors.amber[400]),
+                    //         child: Column(
+                    //           children: [
+                    //             Padding(
+                    //                 padding: EdgeInsets.symmetric(vertical: 0),
+                    //                 child: Row(
+                    //                   mainAxisAlignment:
+                    //                       MainAxisAlignment.spaceAround,
+                    //                   children: [
+                    //                     Padding(
+                    //                         padding: EdgeInsets.symmetric(
+                    //                             horizontal: Sizer.sbh * 2),
+                    //                         child: Column(
+                    //                           children: [
+                    //                             Text(
+                    //                               "1",
+                    //                               style: TextStyle(
+                    //                                   color: Colors.white,
+                    //                                   fontSize: Sizer.fss),
+                    //                             ),
+                    //                             Icon(
+                    //                                 Icons.arrow_drop_up_rounded,
+                    //                                 color: Colors.green[700],
+                    //                                 size: Sizer.fss),
+                    //                           ],
+                    //                         )),
+                    //                     Container(
+                    //                       height: Sizer.sbv * 4,
+                    //                       width: Sizer.screenWidth * 0.6,
+                    //                       decoration: BoxDecoration(
+                    //                         borderRadius:
+                    //                             BorderRadius.circular(15),
+                    //                         color: Color.fromARGB(
+                    //                             91, 165, 165, 165),
+                    //                       ),
+                    //                       child: Row(
+                    //                         children: [
+                    //                           CircleAvatar(
+                    //                             radius: 15,
+                    //                             backgroundColor:
+                    //                                 Colors.transparent,
+                    //                             child: ClipOval(
+                    //                               child: Image.network(
+                    //                                 "",
+                    //                                 fit: BoxFit.cover,
+                    //                               ),
+                    //                             ),
+                    //                           ),
+                    //                           SizedBox(
+                    //                             width: Sizer.sbh * 2,
+                    //                           ),
+                    //                           Padding(
+                    //                               padding: EdgeInsets.symmetric(
+                    //                                   horizontal:
+                    //                                       Sizer.sbh * 2),
+                    //                               child: Text(
+                    //                                 "John Doe",
+                    //                                 style: TextStyle(
+                    //                                     color: Colors.white,
+                    //                                     fontSize: Sizer.fss),
+                    //                               )),
+                    //                           SizedBox(
+                    //                             width: Sizer.sbh * 15,
+                    //                           ),
+                    //                           Padding(
+                    //                               padding: EdgeInsets.symmetric(
+                    //                                   horizontal:
+                    //                                       Sizer.sbh * 2),
+                    //                               child: Text(
+                    //                                 "1234 XP",
+                    //                                 style: TextStyle(
+                    //                                     color:
+                    //                                         Colors.green[900],
+                    //                                     fontSize: Sizer.fss),
+                    //                               )),
+                    //                         ],
+                    //                       ),
+                    //                     ),
+                    //                   ],
+                    //                 ))
+                    //           ],
+                    //         )))
                   ]
                 ]))));
   }

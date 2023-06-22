@@ -97,7 +97,11 @@ class _OTRHistoryState extends State<OTRHistory> {
             appBar: AppBar(
               centerTitle: true,
               title: Text("Your OTR History"),
-              leading: Icon(Icons.chevron_left_rounded),
+              leading: InkWell(
+                  onTap: () {
+                    Navigator.pop(context);
+                  },
+                  child: Icon(Icons.chevron_left_rounded)),
               backgroundColor: Colors.orangeAccent,
             ),
             body: SingleChildScrollView(

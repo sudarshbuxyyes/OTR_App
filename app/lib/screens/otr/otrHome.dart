@@ -117,7 +117,9 @@ class _OTRHomeState extends State<OTRHome> {
           DefaultMaterialLocalizations.delegate,
         ],
         child: Scaffold(
-            bottomNavigationBar: NavBar(),
+            bottomNavigationBar: NavBar(
+              selected_index: 0,
+            ),
             body: SingleChildScrollView(
               scrollDirection: Axis.vertical,
               child: Column(
