@@ -19,6 +19,20 @@ class EventCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     Sizer.init(context);
+    int participation_thresh1 = (event.num_limit / 2).toInt();
+    int participation_thresh2 = (event.num_limit * 0.75).toInt();
+    Color col;
+    if (event.num_participants < participation_thresh1) {
+      //green
+      col = Colors.green[800]!;
+    } else if (event.num_participants <= participation_thresh2) {
+      //yellow
+      col = Colors.yellow[800]!;
+    } else {
+      //red
+      col = Colors.red[800]!;
+    }
+
     return InkWell(
         onTap: () {
           //move to event Details window
@@ -64,16 +78,37 @@ class EventCard extends StatelessWidget {
                           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                           children: [
                             Padding(
-                              padding: EdgeInsets.all(Sizer.sbh),
-                              child: Text("Event Name"),
+                              padding: EdgeInsets.symmetric(
+                                  horizontal: Sizer.sbh * 2,
+                                  vertical: Sizer.sbv),
+                              child: Text(
+                                "Event Name",
+                                style: TextStyle(
+                                    fontSize: Sizer.fss * 0.9,
+                                    fontWeight: FontWeight.w600,
+                                    color: Colors.black),
+                              ),
                             ),
                             Padding(
-                                padding: EdgeInsets.all(Sizer.sbh),
+                                padding: EdgeInsets.symmetric(
+                                    horizontal: Sizer.sbh * 2,
+                                    vertical: Sizer.sbv),
                                 child: Container(
                                   child: Row(
                                     children: [
-                                      Icon(Icons.location_on_outlined),
-                                      Text("View Location")
+                                      Icon(
+                                        Icons.location_on_outlined,
+                                        color: Colors.black87,
+                                        size: Sizer.fss,
+                                      ),
+                                      SizedBox(width: Sizer.sbh),
+                                      Text(
+                                        "Location",
+                                        style: TextStyle(
+                                            color: Colors.black87,
+                                            fontSize: Sizer.fss,
+                                            fontWeight: FontWeight.w500),
+                                      )
                                     ],
                                   ),
                                 )),
@@ -81,25 +116,35 @@ class EventCard extends StatelessWidget {
                         ),
                         SizedBox(height: Sizer.sbv),
                         Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                          mainAxisAlignment: MainAxisAlignment.spaceAround,
                           children: [
                             Padding(
-                              padding: EdgeInsets.all(Sizer.sbh),
-                              child: Text("Time, Date"),
+                              padding: EdgeInsets.symmetric(
+                                  horizontal: Sizer.sbh, vertical: Sizer.sbv),
+                              child: Text("Time, Date",
+                                  style: TextStyle(
+                                      color: Colors.grey[600],
+                                      fontWeight: FontWeight.normal,
+                                      fontSize: Sizer.fss * 0.8)),
                             ),
                             Padding(
-                                padding: EdgeInsets.all(Sizer.sbh),
+                                padding: EdgeInsets.symmetric(
+                                    horizontal: Sizer.sbh, vertical: Sizer.sbv),
                                 child: Container(
-                                  child: Text("12/30 Participants"),
+                                  child: Text(
+                                      event.num_participants.toString() +
+                                          "/" +
+                                          "50 Participants",
+                                      style: TextStyle(
+                                          color: col,
+                                          fontWeight: FontWeight.normal,
+                                          fontSize: Sizer.fss * 0.8)),
                                 )),
                           ],
                         ),
                         SizedBox(height: Sizer.sbv),
                       ],
                     )),
-                SizedBox(
-                  height: Sizer.sbv,
-                )
               ],
             )));
   }

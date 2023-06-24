@@ -14,13 +14,15 @@ class NavBar extends StatelessWidget {
     List<BottomNavigationBarItem> _bottomBar = [
       BottomNavigationBarItem(
           icon: Icon(
-            Icons.location_on,
+            Icons.home,
             color: Colors.amber,
           ),
           label: 'OTR'),
       BottomNavigationBarItem(
-          icon: Icon(
-            Icons.event,
+          icon: new Image.asset(
+            'assets/images/otr_icon.png',
+            width: 30,
+            height: 30,
             color: Colors.amber,
           ),
           label: 'Events'),
@@ -31,13 +33,15 @@ class NavBar extends StatelessWidget {
           ),
           label: 'Profile'),
       BottomNavigationBarItem(
-          icon: Icon(
-            Icons.shopping_cart,
-            color: Colors.amber,
-          ),
-          label: 'Shop'),
+        icon: Icon(
+          Icons.shopping_cart,
+          color: Colors.amber,
+        ),
+        label: 'Shop',
+      ),
     ];
     return BottomNavigationBar(
+        backgroundColor: Colors.black,
         items: _bottomBar,
         currentIndex: selected_index,
         onTap: (value) {

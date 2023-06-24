@@ -73,7 +73,7 @@ flutter:
   assets:
     - assets/images/otr_adventures.png
     - assets/images/badge.png
-
+    - assets/images/otr_icon.png
     - assets/images/otr.jpeg
     - assets/images/off_roading.jpeg
 

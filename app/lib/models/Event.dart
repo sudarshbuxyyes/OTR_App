@@ -5,7 +5,10 @@ class Event {
   String EventLocation;
   String EventDescription;
   bool Event_attended;
+  bool Event_ongoing;
+
   int num_participants;
+  int num_limit;
   Event({
     required this.EventID,
     required this.EventName,
@@ -14,5 +17,7 @@ class Event {
     required this.EventDescription,
     required this.Event_attended,
     required this.num_participants,
+    required this.num_limit,
+    required this.Event_ongoing,
   });
 }

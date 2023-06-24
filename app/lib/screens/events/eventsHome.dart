@@ -2,6 +2,7 @@ import 'package:app/models/Event.dart';
 import 'package:app/screens/events/eventDetails.dart';
 import 'package:app/utils/Sizer.dart';
 import 'package:app/widgets/EventCard.dart';
+import 'package:app/widgets/NavBar.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:dots_indicator/dots_indicator.dart';
 import 'package:flutter/material.dart';
@@ -31,7 +32,9 @@ class _EventsHomeState extends State<EventsHome> {
         EventDate: DateTime.now(),
         EventLocation: "Location for Event 1",
         Event_attended: false,
-        num_participants: 123),
+        num_participants: 12,
+        num_limit: 50,
+        Event_ongoing: true),
     Event(
         EventID: 2,
         EventName: "Event 2",
@@ -39,7 +42,9 @@ class _EventsHomeState extends State<EventsHome> {
         EventDate: DateTime.now(),
         EventLocation: "Location for Event 2",
         Event_attended: true,
-        num_participants: 123),
+        num_participants: 34,
+        num_limit: 50,
+        Event_ongoing: true),
     Event(
         EventID: 3,
         EventName: "Event 3",
@@ -47,7 +52,9 @@ class _EventsHomeState extends State<EventsHome> {
         EventDate: DateTime.now(),
         EventLocation: "Location for Event 3",
         Event_attended: true,
-        num_participants: 123),
+        num_participants: 23,
+        num_limit: 50,
+        Event_ongoing: true),
     Event(
         EventID: 4,
         EventName: "Event 4",
@@ -55,7 +62,9 @@ class _EventsHomeState extends State<EventsHome> {
         EventDate: DateTime.now(),
         EventLocation: "Location for Event 4",
         Event_attended: false,
-        num_participants: 123),
+        num_participants: 47,
+        num_limit: 50,
+        Event_ongoing: true),
     Event(
         EventID: 5,
         EventName: "Event 5",
@@ -63,7 +72,9 @@ class _EventsHomeState extends State<EventsHome> {
         EventDate: DateTime.now(),
         EventLocation: "Location for Event 5",
         Event_attended: false,
-        num_participants: 123),
+        num_participants: 13,
+        num_limit: 50,
+        Event_ongoing: true),
     Event(
         EventID: 6,
         EventName: "Event 6",
@@ -71,7 +82,9 @@ class _EventsHomeState extends State<EventsHome> {
         EventDate: DateTime.now(),
         EventLocation: "Location for Event 6",
         Event_attended: false,
-        num_participants: 123),
+        num_participants: 23,
+        num_limit: 50,
+        Event_ongoing: true),
   ];
 
   @override
@@ -84,12 +97,19 @@ class _EventsHomeState extends State<EventsHome> {
           DefaultMaterialLocalizations.delegate,
         ],
         child: Scaffold(
+          bottomNavigationBar: NavBar(selected_index: 1),
+          backgroundColor: Colors.grey[100],
           appBar: AppBar(
             centerTitle: true,
+            backgroundColor: Colors.white,
+            elevation: 0.2,
             title: const Text(
               "Active Events",
               textAlign: TextAlign.center,
-              style: TextStyle(color: Colors.amber),
+              style: TextStyle(
+                  color: Color.fromARGB(255, 215, 162, 3),
+                  letterSpacing: 0.5,
+                  wordSpacing: 1.2),
             ),
             leading: Container(),
           ),
@@ -99,12 +119,21 @@ class _EventsHomeState extends State<EventsHome> {
               SizedBox(height: Sizer.sbv * 2),
               Container(
                 // Add padding around the search bar
-                padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 8.0, vertical: 4.0),
+                width: Sizer.screenWidth * 0.9,
                 // Use a Material design search bar
                 child: TextField(
                   controller: _searchController,
                   decoration: InputDecoration(
-                    hintText: 'Search...',
+                    filled: true,
+                    fillColor: Colors.grey[200],
+                    hintText: 'Search Event Name',
+                    hintStyle: TextStyle(
+                        color: Colors.grey[400],
+                        fontSize: Sizer.fss * 1.2,
+                        letterSpacing: 0.3,
+                        wordSpacing: 1.0),
                     // Add a clear button to the search bar
                     suffixIcon: IconButton(
                       icon: Icon(Icons.clear),
@@ -113,12 +142,14 @@ class _EventsHomeState extends State<EventsHome> {
                     // Add a search icon or button to the search bar
                     prefixIcon: IconButton(
                       icon: Icon(Icons.search),
+                      color: Colors.black54,
                       onPressed: () {
                         // Perform the search here
                       },
                     ),
                     border: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(20.0),
+                      borderSide: BorderSide.none,
                     ),
                   ),
                 ),

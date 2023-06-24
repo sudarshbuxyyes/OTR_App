@@ -2,6 +2,7 @@ import 'dart:math';
 
 import 'package:app/screens/profile/editProfile.dart';
 import 'package:app/utils/Sizer.dart';
+import 'package:app/widgets/NavBar.dart';
 import 'package:fl_chart/fl_chart.dart';
 
 import 'package:flutter/material.dart';
@@ -54,6 +55,7 @@ class _ProfilePageState extends State<ProfilePage> {
         ],
         child: Scaffold(
             backgroundColor: Colors.white,
+            bottomNavigationBar: NavBar(selected_index: 2),
             appBar: AppBar(
               leading: InkWell(
                 onTap: () {
