@@ -1,6 +1,7 @@
 import 'package:app/screens/otr/otrHome.dart';
 import 'package:app/screens/auth/signup.dart';
 import 'package:app/screens/auth/verificationPage.dart';
+import 'package:app/services/api_services.dart';
 import 'package:app/utils/Sizer.dart';
 import 'package:flutter/material.dart';
 
@@ -72,6 +73,7 @@ class _signInState extends State<SignIn> {
                     child: TextField(
                       obscureText: false,
                       textAlign: TextAlign.center,
+                      controller: usernameController,
                       decoration: InputDecoration(
                         border: InputBorder.none,
                         hintText: 'Email ID',
@@ -92,6 +94,7 @@ class _signInState extends State<SignIn> {
                     child: TextField(
                       obscureText: true,
                       textAlign: TextAlign.center,
+                      controller: passwordController,
                       decoration: InputDecoration(
                         border: InputBorder.none,
                         hintText: 'Password',
@@ -109,7 +112,9 @@ class _signInState extends State<SignIn> {
               height: Sizer.sbh * 10,
             ),
             InkWell(
-              onTap: () {
+              onTap: () async {
+                int responseCode = await ApiService()
+                    .login(usernameController.text, passwordController.text);
                 Navigator.push(context, MaterialPageRoute(builder: (context) {
                   return OTRHome();
                 }));

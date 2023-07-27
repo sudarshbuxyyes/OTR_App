@@ -62,12 +62,40 @@ class ApiService {
     return result;
   }
 
-  Future<void> login(String email, String password) async {
+  Future<int> login(String email, String password) async {
     final String loginUrl = ApiConstants.baseURL + '/login';
+    int result = -1;
+
     Map<String, dynamic> requestData = {
       'email': email,
       'password': password,
     };
+
+    try {
+      final response = await http.post(
+        Uri.parse(loginUrl),
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: json.encode(requestData),
+      );
+
+      if (response.statusCode == 200) {
+        // Successful login
+        print('Login successful');
+        print(response.statusCode);
+        print(response.body);
+      } else {
+        // Error handling
+        print('Login failed with status code: ${response.statusCode}');
+        print(response.body);
+      }
+      result = response.statusCode;
+    } catch (e) {
+      // Exception handling
+      print('Error during login: $e');
+    }
+    return result;
   }
 
   Future<List<CouponModel>?> getActiveCoupons_Partner(String partnerID) async {

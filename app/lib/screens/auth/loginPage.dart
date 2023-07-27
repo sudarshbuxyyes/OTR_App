@@ -1,4 +1,5 @@
 import 'package:app/screens/auth/signin.dart';
+import 'package:app/services/api_services.dart';
 import 'package:app/utils/Sizer.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -12,6 +13,9 @@ class LogIn extends StatefulWidget {
 
 class _LogInState extends State<LogIn> {
   static const logo = 'assets/images/otr_adventures.png';
+  TextEditingController emailFieldController = TextEditingController();
+  TextEditingController passwordFieldController = TextEditingController();
+
   @override
   Widget build(BuildContext context) {
     Sizer.init(context);
