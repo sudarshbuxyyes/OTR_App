@@ -162,7 +162,11 @@ class _OTREventPageState extends State<OTREventPage> {
               ),
               SizedBox(height: Sizer.sbv * 2),
               EventAttendedCard(
-                  Attended: widget.event.Event_attended, Event_type: "OTR"),
+                Attended: widget.event.Event_attended,
+                Event_type: "OTR",
+                ongoing: false,
+                registered: true,
+              ),
               SizedBox(height: Sizer.sbv * 2),
             ])));
   }

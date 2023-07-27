@@ -441,36 +441,36 @@ class _CheckoutPageState extends State<CheckoutPage> {
                                         height: 36,
                                       )),
                                 ),
-                                Container(
-                                  width: Sizer.screenWidth * 0.6,
-                                  alignment: Alignment.center,
-                                  child: Row(
-                                    children: [
-                                      SizedBox(
-                                        width: Sizer.sbh * 18,
-                                      ),
-                                      Text("View All Coupons",
-                                          textAlign: TextAlign.center,
-                                          style: TextStyle(
-                                              fontSize: Sizer.fss * 0.8,
-                                              fontWeight: FontWeight.normal,
-                                              color: Colors.grey[500],
-                                              letterSpacing: 1)),
-                                      InkWell(
-                                        onTap: () => {
-                                          Navigator.push(
-                                              context,
-                                              MaterialPageRoute(
-                                                  builder: (context) =>
-                                                      CouponPage()))
-                                        },
-                                        child: Icon(
+                                InkWell(
+                                  onTap: () => {
+                                    Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                            builder: (context) => CouponPage()))
+                                  },
+                                  child: Container(
+                                    // color: Colors.blue,
+                                    width: Sizer.screenWidth * 0.6,
+                                    alignment: Alignment.center,
+                                    child: Row(
+                                      children: [
+                                        SizedBox(
+                                          width: Sizer.sbh * 18,
+                                        ),
+                                        Text("View All Coupons",
+                                            textAlign: TextAlign.center,
+                                            style: TextStyle(
+                                                fontSize: Sizer.fss * 0.8,
+                                                fontWeight: FontWeight.normal,
+                                                color: Colors.grey[500],
+                                                letterSpacing: 1)),
+                                        Icon(
                                           Icons.chevron_right_rounded,
                                           color: Colors.grey[850],
                                           size: Sizer.fss * 0.8,
                                         ),
-                                      )
-                                    ],
+                                      ],
+                                    ),
                                   ),
                                 ),
                                 SizedBox(height: Sizer.sbv * 2)

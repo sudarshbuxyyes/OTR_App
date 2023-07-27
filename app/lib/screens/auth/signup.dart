@@ -1,5 +1,7 @@
+import 'package:app/services/api_services.dart';
 import 'package:app/utils/Sizer.dart';
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 
 class SignUp extends StatefulWidget {
   const SignUp({Key? key}) : super(key: key);
@@ -10,6 +12,11 @@ class SignUp extends StatefulWidget {
 
 class _SignUpState extends State<SignUp> {
   static const logo = 'assets/images/otr_adventures.png';
+  TextEditingController emailFieldController = TextEditingController();
+  TextEditingController numberFieldController = TextEditingController();
+  TextEditingController passwordFieldController = TextEditingController();
+  TextEditingController firstNameFieldController = TextEditingController();
+  TextEditingController lastNameFieldController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -57,6 +64,168 @@ class _SignUpState extends State<SignUp> {
                         fontWeight: FontWeight.normal,
                       ),
                     )),
+                Container(
+                  width: Sizer.screenWidth * 0.7,
+                  child: Column(
+                    children: [
+                      Container(
+                        decoration: BoxDecoration(
+                            color: Color.fromRGBO(243, 242, 242, 0.9),
+                            borderRadius: BorderRadius.all(Radius.circular(5))),
+                        child: TextField(
+                          obscureText: false,
+                          controller: emailFieldController,
+                          textAlign: TextAlign.center,
+                          decoration: InputDecoration(
+                            border: InputBorder.none,
+                            hintText: 'Email ID',
+                            hintStyle: TextStyle(
+                              color: Colors.grey,
+                              fontSize: Sizer.fss,
+                            ),
+                          ),
+                        ),
+                      ),
+                      SizedBox(
+                        height: Sizer.sbh * 5,
+                      ),
+                      Container(
+                        decoration: BoxDecoration(
+                            color: Color.fromRGBO(243, 242, 242, 0.9),
+                            borderRadius: BorderRadius.all(Radius.circular(5))),
+                        child: TextField(
+                          obscureText: true,
+                          textAlign: TextAlign.center,
+                          controller: passwordFieldController,
+                          decoration: InputDecoration(
+                            border: InputBorder.none,
+                            hintText: 'Password',
+                            hintStyle: TextStyle(
+                              color: Colors.grey,
+                              fontSize: Sizer.fss,
+                            ),
+                          ),
+                        ),
+                      ),
+                      SizedBox(
+                        height: Sizer.sbh * 5,
+                      ),
+                      Container(
+                        decoration: BoxDecoration(
+                            color: Color.fromRGBO(243, 242, 242, 0.9),
+                            borderRadius: BorderRadius.all(Radius.circular(5))),
+                        child: TextField(
+                          obscureText: false,
+                          textAlign: TextAlign.center,
+                          controller: firstNameFieldController,
+                          decoration: InputDecoration(
+                            border: InputBorder.none,
+                            hintText: 'First Name',
+                            hintStyle: TextStyle(
+                              color: Colors.grey,
+                              fontSize: Sizer.fss,
+                            ),
+                          ),
+                        ),
+                      ),
+                      SizedBox(
+                        height: Sizer.sbh * 5,
+                      ),
+                      Container(
+                        decoration: BoxDecoration(
+                            color: Color.fromRGBO(243, 242, 242, 0.9),
+                            borderRadius: BorderRadius.all(Radius.circular(5))),
+                        child: TextField(
+                          obscureText: false,
+                          controller: lastNameFieldController,
+                          textAlign: TextAlign.center,
+                          decoration: InputDecoration(
+                            border: InputBorder.none,
+                            hintText: 'Last Name',
+                            hintStyle: TextStyle(
+                              color: Colors.grey,
+                              fontSize: Sizer.fss,
+                            ),
+                          ),
+                        ),
+                      ),
+                      SizedBox(
+                        height: Sizer.sbh * 5,
+                      ),
+                      Container(
+                        decoration: BoxDecoration(
+                            color: Color.fromRGBO(243, 242, 242, 0.9),
+                            borderRadius: BorderRadius.all(Radius.circular(5))),
+                        child: TextField(
+                          obscureText: false,
+                          controller: numberFieldController,
+                          textAlign: TextAlign.center,
+                          decoration: InputDecoration(
+                            border: InputBorder.none,
+                            hintText: '+91-',
+                            hintStyle: TextStyle(
+                              color: Colors.grey,
+                              fontSize: Sizer.fss,
+                            ),
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+                SizedBox(
+                  height: Sizer.sbh * 5,
+                ),
+                InkWell(
+                  onTap: () async {
+                    String username = firstNameFieldController.text +
+                        ' ' +
+                        lastNameFieldController.text;
+                    int statusCode = await ApiService().signUp(
+                        username,
+                        emailFieldController.text,
+                        numberFieldController.text,
+                        passwordFieldController.text);
+
+                    if (statusCode == 201) {
+                      //signup successful
+                      //clear all textfields.
+                      firstNameFieldController.clear();
+                      lastNameFieldController.clear();
+                      numberFieldController.clear();
+                      emailFieldController.clear();
+                      passwordFieldController.clear();
+
+                      //show successful signup toast
+                      Fluttertoast.showToast(
+                        msg: "Signed up successfully!",
+                        toastLength: Toast.LENGTH_SHORT,
+                        gravity: ToastGravity.BOTTOM,
+                        timeInSecForIosWeb: 1,
+                        backgroundColor: Colors.white70,
+                        textColor: Colors.green[300],
+                        fontSize: 16.0,
+                      );
+                    }
+                  },
+                  child: Container(
+                    width: Sizer.sbh * 40,
+                    height: Sizer.sbh * 8,
+                    alignment: Alignment.center,
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(5),
+                      color: Colors.black,
+                    ),
+                    child: Text(
+                      "Sign Up",
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontSize: Sizer.fss,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                  ),
+                ),
               ])),
         ));
   }

@@ -4,10 +4,16 @@ import 'package:flutter/widgets.dart';
 
 class EventAttendedCard extends StatelessWidget {
   const EventAttendedCard(
-      {Key? key, required bool this.Attended, required String this.Event_type})
+      {Key? key,
+      required bool this.Attended,
+      required bool this.ongoing,
+      required bool this.registered,
+      required String this.Event_type})
       : super(key: key);
 
   final bool Attended;
+  final bool ongoing;
+  final bool registered;
   final String Event_type;
 
   @override
@@ -23,13 +29,24 @@ class EventAttendedCard extends StatelessWidget {
           break;
       }
     } else {
-      switch (Attended) {
+      if (ongoing) {
+        switch (registered) {
+          case true:
+            label = 'You are registered for this event';
+            break;
+          case false:
+            label = 'You are not registered for this event';
+            break;
+        }
+      } else{
+         switch (Attended) {
         case true:
           label = 'You attended this event';
           break;
         case false:
           label = 'You did not attend this event';
           break;
+      }
       }
     }
     Sizer.init(context);
