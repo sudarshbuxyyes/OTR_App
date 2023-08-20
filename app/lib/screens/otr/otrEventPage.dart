@@ -76,7 +76,7 @@ class _OTREventPageState extends State<OTREventPage> {
                   alignment: Alignment.centerLeft,
                   child: Text(
                     textAlign: TextAlign.left,
-                    widget.event.EventName,
+                    widget.event.otr_name,
                     style: TextStyle(
                         fontSize: Sizer.sbv * 3,
                         fontWeight: FontWeight.bold,
@@ -97,14 +97,14 @@ class _OTREventPageState extends State<OTREventPage> {
                           Padding(
                             padding: EdgeInsets.all(Sizer.sbv),
                             child: Text(
-                              widget.event.EventLocation,
+                              widget.event.address_id.toString(),
                               textAlign: TextAlign.left,
                             ),
                           ),
                           Padding(
                             padding: EdgeInsets.all(Sizer.sbv),
                             child: Text(
-                              widget.event.EventDate.toString(),
+                              widget.event.created_date.toString(),
                               textAlign: TextAlign.left,
                             ),
                           ),
@@ -155,14 +155,14 @@ class _OTREventPageState extends State<OTREventPage> {
                 child: Padding(
                   padding: EdgeInsets.all(Sizer.sbv),
                   child: Text(
-                    widget.event.EventDescription,
+                    "Dummy Description for OTR Event",
                     textAlign: TextAlign.left,
                   ),
                 ),
               ),
               SizedBox(height: Sizer.sbv * 2),
               EventAttendedCard(
-                Attended: widget.event.Event_attended,
+                Attended: true,
                 Event_type: "OTR",
                 ongoing: false,
                 registered: true,

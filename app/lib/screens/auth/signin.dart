@@ -1,9 +1,13 @@
+import 'dart:convert';
+
 import 'package:app/screens/otr/otrHome.dart';
 import 'package:app/screens/auth/signup.dart';
 import 'package:app/screens/auth/verificationPage.dart';
 import 'package:app/services/api_services.dart';
+import 'package:app/services/userProvider.dart';
 import 'package:app/utils/Sizer.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class SignIn extends StatefulWidget {
   const SignIn({Key? key}) : super(key: key);
@@ -14,8 +18,35 @@ class SignIn extends StatefulWidget {
 
 class _signInState extends State<SignIn> {
   static const logo = 'assets/images/otr_adventures.png';
-  TextEditingController usernameController = TextEditingController();
+  TextEditingController emailController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
+
+  Future<bool> _handleLogin(BuildContext context) async {
+    final userProvider = Provider.of<UserProvider>(context, listen: false);
+    bool login_response = false;
+    try {
+      login_response = await userProvider.login(
+        emailController.text,
+        passwordController.text,
+      );
+
+      // Navigate to the home screen or perform any other action after successful login
+    } catch (e) {
+      // Handle login failure, show error message, etc.
+      print(e);
+    }
+    final user = userProvider.user;
+    if (user != null) {
+      print("not null");
+      print(user.id);
+      print(user.username);
+      print(user.email);
+      print(user.contact_number);
+      print(user.password);
+      print(user.access_token);
+    }
+    return login_response;
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -73,7 +104,7 @@ class _signInState extends State<SignIn> {
                     child: TextField(
                       obscureText: false,
                       textAlign: TextAlign.center,
-                      controller: usernameController,
+                      controller: emailController,
                       decoration: InputDecoration(
                         border: InputBorder.none,
                         hintText: 'Email ID',
@@ -113,11 +144,21 @@ class _signInState extends State<SignIn> {
             ),
             InkWell(
               onTap: () async {
-                int responseCode = await ApiService()
-                    .login(usernameController.text, passwordController.text);
-                Navigator.push(context, MaterialPageRoute(builder: (context) {
-                  return OTRHome();
-                }));
+                bool login_success = await _handleLogin(context);
+                if (login_success) {
+                  Navigator.push(context, MaterialPageRoute(builder: (context) {
+                    return OTRHome();
+                  }));
+                }
+                // if (responseCode == 200) {
+
+                //   Navigator.push(context, MaterialPageRoute(builder: (context) {
+                //     return OTRHome();
+                //   }));
+                // }
+                // Navigator.push(context, MaterialPageRoute(builder: (context) {
+                //   return OTRHome();
+                // }));
               },
               child: Container(
                 width: Sizer.sbh * 40,

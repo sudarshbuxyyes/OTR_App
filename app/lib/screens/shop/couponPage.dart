@@ -1,9 +1,11 @@
 import 'package:app/models/CouponModel.dart';
 import 'package:app/models/PartnerModel.dart';
 import 'package:app/services/api_services.dart';
+import 'package:app/services/userProvider.dart';
 import 'package:app/utils/Sizer.dart';
 import 'package:coupon_uikit/coupon_uikit.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class CouponPage extends StatefulWidget {
   @override
@@ -11,19 +13,28 @@ class CouponPage extends StatefulWidget {
 }
 
 class _CouponPageState extends State<CouponPage> {
-  late List<CouponModel> _coupons;
-  late List<PartnerModel> _partners;
+  late Future<List<CouponModel>> _coupons;
+  late Future<List<PartnerModel>> _partners;
   @override
   void initState() {
     super.initState();
-    _getData();
+    final userProvider = Provider.of<UserProvider>(context, listen: false);
+    _partners = ApiService().getPartners(userProvider.user!.access_token)
+        as Future<List<PartnerModel>>;
+    print(_partners);
+    _coupons = ApiService().getActiveCoupons(userProvider.user!.access_token)
+        as Future<List<CouponModel>>;
+
+
   }
 
-  void _getData() async {
-    _coupons = (await ApiService().getAllActiveCoupons())!;
-    _partners = (await ApiService().getPartners())!;
-    Future.delayed(const Duration(seconds: 3)).then((value) => setState(() {}));
-  }
+  // void _getData(String access_token) async {
+  //   // _coupons = (await ApiService().getAllActiveCoupons())!;
+  //   _coupons = ApiService().getActiveCoupons() as Future<List<CouponModel>>;
+  //   print("coupons : ${_coupons.toString()}");
+  //   // _partners = (await ApiService().getPartners(access_token))!;
+  //   Future.delayed(const Duration(seconds: 1)).then((value) => setState(() {}));
+  // }
 
   @override
   Widget build(BuildContext context) {

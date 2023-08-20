@@ -19,9 +19,7 @@ class OTREventHistoryCard extends StatelessWidget {
             color: Colors.white,
             borderRadius: BorderRadius.circular(10),
             border: Border.all(
-                color: event.Event_attended
-                    ? Colors.green[700]!
-                    : Colors.red[700]!)),
+                color: true ? Colors.green[700]! : Colors.red[700]!)),
         child: Column(
           children: [
             SizedBox(height: Sizer.sbv),
@@ -31,13 +29,13 @@ class OTREventHistoryCard extends StatelessWidget {
                 Padding(
                   padding: EdgeInsets.symmetric(horizontal: Sizer.sbh * 5),
                   child: Text(
-                    event.EventName,
+                    event.otr_name,
                     style: TextStyle(fontWeight: FontWeight.bold),
                   ),
                 ),
                 Padding(
                   padding: EdgeInsets.symmetric(horizontal: Sizer.sbh * 5),
-                  child: Text(event.formatEventDate()),
+                  child: Text(event.created_date.toString()),
                 )
               ],
             ),
@@ -47,29 +45,23 @@ class OTREventHistoryCard extends StatelessWidget {
               children: [
                 Padding(
                     padding: EdgeInsets.symmetric(horizontal: Sizer.sbh * 5),
-                    child: Text(event.EventDistance.toString() + " km")),
+                    child: Text("123 km")),
                 Padding(
                     padding: EdgeInsets.symmetric(horizontal: Sizer.sbh * 5),
                     child: Row(
                       children: [
                         Text(
-                          event
-                                  .getEventReward(true, event.Event_attended)
-                                  .toString() +
-                              " XP",
+                          event.getEventReward(true, true).toString() + " XP",
                           style: TextStyle(
-                              color: event.Event_attended
-                                  ? Colors.green[700]
-                                  : Colors.red[700]!),
+                              color:
+                                  true ? Colors.green[700] : Colors.red[700]!),
                         ),
                         SizedBox(width: Sizer.sbh),
                         Icon(
-                          event.Event_attended
+                          true
                               ? Icons.trending_up_rounded
                               : Icons.trending_down_rounded,
-                          color: event.Event_attended
-                              ? Colors.green[700]
-                              : Colors.red[700],
+                          color: true ? Colors.green[700] : Colors.red[700],
                         ),
                       ],
                     )),
