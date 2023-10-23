@@ -54,6 +54,7 @@ class OTREvent {
   //   return DateFormat.yMMMEd().format(EventDate);
   // }
   factory OTREvent.fromJson(String str) => OTREvent.fromMap(json.decode(str));
+
   factory OTREvent.fromMap(Map<String, dynamic> json) => OTREvent(
       id: json['_id'],
       has_special_badge: json['has_special_badge'],

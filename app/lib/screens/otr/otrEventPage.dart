@@ -1,14 +1,18 @@
-import 'package:app/models/OTREvent.dart';
+import 'package:app/models/OTREventModel.dart';
+import 'package:app/services/userProvider.dart';
 import 'package:app/utils/Sizer.dart';
+import 'package:app/utils/constants.dart';
 import 'package:app/widgets/EventAttended.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:dots_indicator/dots_indicator.dart';
 import 'package:flutter/material.dart';
+import 'package:http/http.dart' as http;
+import 'package:provider/provider.dart';
 
 class OTREventPage extends StatefulWidget {
   const OTREventPage({Key? key, required this.event}) : super(key: key);
 
-  final OTREvent event;
+  final OTREventModel event;
 
   @override
   State<OTREventPage> createState() => _OTREventPageState();
@@ -22,6 +26,47 @@ class _OTREventPageState extends State<OTREventPage> {
     'assets/images/otr.jpeg'
   ];
   int currentIndex = 0;
+
+  bool eventOngoing(String eventDate) {
+    DateTime? eventEndDate = DateTime.tryParse(eventDate);
+    if (eventEndDate == null) {
+      return false;
+    } else {
+      DateTime current = DateTime.now();
+      if (eventEndDate.isBefore(current)) {
+        return true;
+      } else {
+        return false;
+      }
+    }
+  }
+
+  Future<void> eventAttended(String access_token) async {
+    var url = Uri.parse(ApiConstants.baseURL + '/otr-user?has_attended=true');
+    var response = await http
+        .get(url, headers: {'Authorization': 'Bearer ${access_token}'});
+
+    print(response.statusCode);
+    if (response.statusCode == 200) {
+      print(response.body);
+
+      // List<OTREvent> events = [];
+      // final apiResponse = apiResponseFromJson(response.body.toString());
+      // print(apiResponse);
+      // print(transaction);
+    } else {
+      throw Exception("Failed to fetch attended events");
+    }
+  }
+
+  @override
+  void initState() {
+    super.initState();
+
+    final userProvider = Provider.of<UserProvider>(context, listen: false);
+    eventAttended(userProvider.user!.access_token);
+  }
+
   @override
   Widget build(BuildContext context) {
     Sizer.init(context);
@@ -76,7 +121,7 @@ class _OTREventPageState extends State<OTREventPage> {
                   alignment: Alignment.centerLeft,
                   child: Text(
                     textAlign: TextAlign.left,
-                    widget.event.otr_name,
+                    "OTR Event",
                     style: TextStyle(
                         fontSize: Sizer.sbv * 3,
                         fontWeight: FontWeight.bold,
@@ -97,21 +142,21 @@ class _OTREventPageState extends State<OTREventPage> {
                           Padding(
                             padding: EdgeInsets.all(Sizer.sbv),
                             child: Text(
-                              widget.event.address_id.toString(),
+                              widget.event.addressId.toString(),
                               textAlign: TextAlign.left,
                             ),
                           ),
                           Padding(
                             padding: EdgeInsets.all(Sizer.sbv),
                             child: Text(
-                              widget.event.created_date.toString(),
+                              "Ongoing till ${widget.event.otrEndDate.substring(0, 10)}",
                               textAlign: TextAlign.left,
                             ),
                           ),
                           Padding(
                             padding: EdgeInsets.all(Sizer.sbv),
                             child: Text(
-                              'Distance : 123 km',
+                              '${widget.event.locations.toString()}',
                               textAlign: TextAlign.left,
                             ),
                           )
@@ -161,12 +206,33 @@ class _OTREventPageState extends State<OTREventPage> {
                 ),
               ),
               SizedBox(height: Sizer.sbv * 2),
-              EventAttendedCard(
-                Attended: true,
-                Event_type: "OTR",
-                ongoing: false,
-                registered: true,
-              ),
+              eventOngoing(widget.event.otrEndDate)
+                  ? EventAttendedCard(
+                      Attended: true,
+                      Event_type: "OTR",
+                      ongoing: false,
+                      registered: true,
+                    )
+                  : InkWell(
+                      onTap: () {},
+                      child: Container(
+                        width: Sizer.sbh * 40,
+                        height: Sizer.sbh * 8,
+                        alignment: Alignment.center,
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(5),
+                          color: Colors.black,
+                        ),
+                        child: Text(
+                          "Register Now",
+                          style: TextStyle(
+                            color: Colors.white,
+                            fontSize: Sizer.fss,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                      ),
+                    ),
               SizedBox(height: Sizer.sbv * 2),
             ])));
   }

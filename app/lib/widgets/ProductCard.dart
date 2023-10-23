@@ -1,14 +1,15 @@
 import 'dart:ffi';
 
 import 'package:app/models/Product.dart';
+import 'package:app/models/ProductModel.dart';
 import 'package:app/utils/Sizer.dart';
 import 'package:flutter/material.dart';
 
 class ProductCard extends StatelessWidget {
-  const ProductCard({Key? key, required Product this.product})
+  const ProductCard({Key? key, required ProductModel this.product})
       : super(key: key);
 
-  final Product product;
+  final ProductModel product;
 
   @override
   Widget build(BuildContext context) {
@@ -17,7 +18,7 @@ class ProductCard extends StatelessWidget {
         padding: EdgeInsets.all(Sizer.sbh * 2),
         child: Container(
             width: Sizer.screenWidth * 0.4,
-            height: Sizer.sbv * 30,
+            height: Sizer.sbv * 35,
             child: Column(
               children: [
                 Padding(
@@ -28,7 +29,7 @@ class ProductCard extends StatelessWidget {
                           borderRadius: BorderRadius.circular(10),
                           color: Colors.grey[700]),
                       child: Image.network(
-                        product.cover_image,
+                        product.images![0],
                         fit: BoxFit.cover,
                       ),
                     )),
@@ -40,7 +41,7 @@ class ProductCard extends StatelessWidget {
                           child: Padding(
                             padding:
                                 EdgeInsets.symmetric(horizontal: Sizer.sbh * 3),
-                            child: Text(product.name,
+                            child: Text(product.name! ?? "Product",
                                 textAlign: TextAlign.left,
                                 style: TextStyle(
                                   fontSize: Sizer.fss * 0.9,
@@ -72,7 +73,7 @@ class ProductCard extends StatelessWidget {
                                 size: Sizer.fss * 0.9,
                               )),
                           Text(
-                            product.rating.toString(),
+                            "4.3",
                             style: TextStyle(
                               fontSize: Sizer.fss * 0.69,
                               fontWeight: FontWeight.w300,
@@ -86,7 +87,7 @@ class ProductCard extends StatelessWidget {
                     ),
                     Container(
                       child: Text(
-                        product.reviews_count.toString() + " reviews",
+                        "4 reviews",
                         style: TextStyle(
                           fontSize: Sizer.fss * 0.69,
                           fontWeight: FontWeight.w500,

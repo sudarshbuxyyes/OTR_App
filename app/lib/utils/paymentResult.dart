@@ -46,31 +46,32 @@ class _PaymentResultState extends State<PaymentResult> {
               Stack(children: <Widget>[
                 Align(
                   alignment: Alignment.center,
-                  child: ConfettiWidget(
-                    confettiController: _controllerCenter,
-                    blastDirectionality: BlastDirectionality
-                        .explosive, // don't specify a direction, blast randomly
-                    shouldLoop:
-                        false, // start again as soon as the animation is finished
-                    colors: const [
-                      Colors.white70,
-                      Colors.orange,
-                      Colors.amber,
-                    ], // manually specify the colors to be used
-                    // define a custom shape/path.
-                  ),
+
+                  // child: ConfettiWidget(
+                  //   confettiController: _controllerCenter,
+                  //   blastDirectionality: BlastDirectionality
+                  //       .explosive, // don't specify a direction, blast randomly
+                  //   shouldLoop:
+                  //       false, // start again as soon as the animation is finished
+                  //   colors: const [
+                  //     Colors.white70,
+                  //     Colors.orange,
+                  //     Colors.amber,
+                  //   ], // manually specify the colors to be used
+                  //   // define a custom shape/path.
+                  // ),
                 ),
                 Center(
                     child: InkWell(
                   onTap: () {
-                    if (widget.result) {
-                      _controllerCenter.play();
-                    }
-                    if (_controllerCenter.state ==
-                        ConfettiControllerState.stopped) {
-                      Navigator.pop(context);
-                    }
-                    ;
+                    // if (widget.result) {
+                    //   _controllerCenter.play();
+                    // }
+                    // if (_controllerCenter.state ==
+                    //     ConfettiControllerState.stopped) {
+                    //   Navigator.pop(context);
+                    // }
+                    // ;
                   },
                   child: Container(
                     height: Sizer.sbh * 50,

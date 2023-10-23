@@ -3,6 +3,7 @@ import 'package:app/screens/events/eventDetails.dart';
 import 'package:app/utils/Sizer.dart';
 import 'package:app/widgets/EventCard.dart';
 import 'package:app/widgets/NavBar.dart';
+import 'package:app/widgets/NavDrawer.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:dots_indicator/dots_indicator.dart';
 import 'package:flutter/material.dart';
@@ -97,6 +98,7 @@ class _EventsHomeState extends State<EventsHome> {
           DefaultMaterialLocalizations.delegate,
         ],
         child: Scaffold(
+          drawer: NavDrawer(),
           bottomNavigationBar: NavBar(selected_index: 1),
           backgroundColor: Colors.grey[100],
           appBar: AppBar(
@@ -111,7 +113,6 @@ class _EventsHomeState extends State<EventsHome> {
                   letterSpacing: 0.5,
                   wordSpacing: 1.2),
             ),
-            leading: Container(),
           ),
           body: SingleChildScrollView(
             scrollDirection: Axis.vertical,

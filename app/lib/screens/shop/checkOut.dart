@@ -1,9 +1,12 @@
 import 'package:app/models/Product.dart';
 import 'package:app/screens/shop/couponPage.dart';
+import 'package:app/services/api_services.dart';
+import 'package:app/services/userProvider.dart';
 import 'package:app/utils/Sizer.dart';
 import 'package:app/utils/paymentResult.dart';
 import 'package:counter/counter.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:razorpay_flutter/razorpay_flutter.dart';
 
 class CheckoutPage extends StatefulWidget {
@@ -18,6 +21,8 @@ class _CheckoutPageState extends State<CheckoutPage> {
     _razorpay.on(Razorpay.EVENT_PAYMENT_SUCCESS, _handlePaymentSuccess);
     _razorpay.on(Razorpay.EVENT_PAYMENT_ERROR, _handlePaymentError);
     _razorpay.on(Razorpay.EVENT_EXTERNAL_WALLET, _handleExternalWallet);
+    final userProvider = Provider.of<UserProvider>(context, listen: false);
+    ApiService().getUserCart(userProvider.user!.access_token);
     super.initState();
   }
 
@@ -37,6 +42,7 @@ class _CheckoutPageState extends State<CheckoutPage> {
   void _handleExternalWallet(ExternalWalletResponse response) {
     // Do something when an external wallet was selected
   }
+
   @override
   Widget build(BuildContext context) {
     Sizer.init(context);

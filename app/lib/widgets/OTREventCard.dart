@@ -1,17 +1,16 @@
+import 'package:app/models/OTREventModel.dart';
 import 'package:app/utils/Sizer.dart';
 import 'package:flutter/material.dart';
-
-import '../models/OTREvent.dart';
 
 class OTREventCard extends StatelessWidget {
   OTREventCard({
     Key? key,
-    required OTREvent this.event,
+    required OTREventModel this.event,
     required bool this.displayText,
     required bool this.showCarousel,
   }) : super(key: key);
-  
-  final OTREvent event;
+
+  final OTREventModel event;
   final bool showCarousel;
   final bool displayText;
 
@@ -57,14 +56,79 @@ class OTREventCard extends StatelessWidget {
             SizedBox(height: Sizer.sbv),
             displayText
                 ? Container(
-                    height: Sizer.sbv * 30,
                     width: Sizer.screenWidth * 0.75,
                     alignment: Alignment.center,
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(10),
                       color: Colors.white,
                     ),
-                    child: Text("Placeholder Text for Event Card Description"))
+                    child: Column(children: [
+                      Padding(
+                        padding:
+                            EdgeInsets.symmetric(horizontal: Sizer.sbh * 2),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Text("OTR Event"),
+                            Text(
+                                "Ongoing till ${event.otrEndDate.substring(0, 10)}",
+                                style: TextStyle(fontSize: Sizer.fss * 0.8))
+                          ],
+                        ),
+                      ),
+                      SizedBox(
+                        height: Sizer.sbv * 2,
+                      ),
+                      Padding(
+                          padding:
+                              EdgeInsets.symmetric(horizontal: Sizer.sbh * 2),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Text("Address : ${event.addressId}"),
+                              Text(
+                                  "${event.participantCount} / ${event.maxParticipant} Participants",
+                                  style: TextStyle(fontSize: Sizer.fss * 0.8))
+                            ],
+                          )),
+                      SizedBox(
+                        height: Sizer.sbv * 2,
+                      ),
+                      Padding(
+                          padding:
+                              EdgeInsets.symmetric(horizontal: Sizer.sbh * 2),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Text("Registrations are ${event.mode}"),
+                              Text("Rs. ${event.cost.toString()} /-",
+                                  style: TextStyle(fontSize: Sizer.fss * 0.8))
+                            ],
+                          )),
+                      SizedBox(
+                        height: Sizer.sbv,
+                      ),
+                      InkWell(
+                        onTap: () {},
+                        child: Container(
+                          width: Sizer.sbh * 40,
+                          height: Sizer.sbh * 9,
+                          alignment: Alignment.center,
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(5),
+                            color: Colors.black,
+                          ),
+                          child: Text(
+                            "View More",
+                            style: TextStyle(
+                              color: Colors.white,
+                              fontSize: Sizer.fss,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                        ),
+                      ),
+                    ]))
                 : Container(),
             SizedBox(
               height: Sizer.sbv,

@@ -1,9 +1,13 @@
 import 'package:app/models/Product.dart';
+import 'package:app/models/ProductModel.dart';
 import 'package:app/screens/shop/checkOut.dart';
+import 'package:app/services/api_services.dart';
+import 'package:app/services/userProvider.dart';
 import 'package:app/utils/Sizer.dart';
 import 'package:app/widgets/NavBar.dart';
 import 'package:app/widgets/ProductCard.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class ShoppingHome extends StatefulWidget {
   const ShoppingHome({Key? key}) : super(key: key);
@@ -13,6 +17,15 @@ class ShoppingHome extends StatefulWidget {
 
 class _ShoppingHomeState extends State<ShoppingHome> {
   final TextEditingController _searchController = TextEditingController();
+  late Future<List<ProductModel>> _products;
+
+  @override
+  void initState() {
+    super.initState();
+    final userProvider = Provider.of<UserProvider>(context, listen: false);
+
+    _products = ApiService().getProducts(userProvider.user!.access_token);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -78,16 +91,40 @@ class _ShoppingHomeState extends State<ShoppingHome> {
                     ),
                   )
                 ]),
-            body: GridView.builder(
-                padding: EdgeInsets.symmetric(horizontal: Sizer.sbh),
-                gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                    crossAxisCount: 2, childAspectRatio: 0.9),
-                itemCount: 10,
-                itemBuilder: (context, index) {
-                  return ProductCard(
-                    product: products[index % 2],
-                  );
-                }))
+            body: FutureBuilder<List<ProductModel>>(
+                future: _products,
+                builder: (context, snapshot) {
+                  if (snapshot.connectionState == ConnectionState.waiting) {
+                    return Center(child: CircularProgressIndicator());
+                  } else if (snapshot.hasError) {
+                    return Text('Error: ${snapshot.error}');
+                  } else if (!snapshot.hasData) {
+                    return Text('No events available.');
+                  } else {
+                    final _products = snapshot.data!;
+                    return GridView.builder(
+                        padding: EdgeInsets.symmetric(horizontal: Sizer.sbh),
+                        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                            crossAxisCount: 2, childAspectRatio: 0.9),
+                        itemCount: _products.length,
+                        itemBuilder: (context, index) {
+                          return ProductCard(
+                            product: _products[index],
+                          );
+                        });
+                  }
+                })
+            // GridView.builder(
+            //     padding: EdgeInsets.symmetric(horizontal: Sizer.sbh),
+            //     gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+            //         crossAxisCount: 2, childAspectRatio: 0.9),
+            //     itemCount: 10,
+            //     itemBuilder: (context, index) {
+            //       return ProductCard(
+            //         product: products[index % 2],
+            //       );
+            //     })
+            )
         // body: SingleChildScrollView(
         //   scrollDirection: Axis.vertical,
         //   child: Column(

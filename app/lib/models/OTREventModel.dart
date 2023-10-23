@@ -31,22 +31,21 @@ class OTREventModel {
   List<dynamic> imageLinks;
   bool hasSpecialBadge;
   String id;
-  String addressId;
-  DateTime otrEndDate;
+  String? addressId;
+  String otrEndDate;
   int participantCount;
   int maxParticipant;
-  String mode;
+  String? mode;
   double cost;
-  DateTime createdDate;
-  DateTime updatedDate;
-  int v;
+  String? createdDate;
+  String? updatedDate;
   List<dynamic> locations;
 
   OTREventModel({
     required this.imageLinks,
     required this.hasSpecialBadge,
     required this.id,
-    required this.addressId,
+    this.addressId,
     required this.otrEndDate,
     required this.participantCount,
     required this.maxParticipant,
@@ -54,7 +53,6 @@ class OTREventModel {
     required this.cost,
     required this.createdDate,
     required this.updatedDate,
-    required this.v,
     required this.locations,
   });
 
@@ -63,14 +61,13 @@ class OTREventModel {
         hasSpecialBadge: json["has_special_badge"],
         id: json["_id"],
         addressId: json["address_id"],
-        otrEndDate: DateTime.parse(json["otr_end_date"]),
+        otrEndDate: json["otr_end_date"],
         participantCount: json["participant_count"],
         maxParticipant: json["max_participant"],
         mode: json["mode"],
         cost: json["cost"]?.toDouble(),
-        createdDate: DateTime.parse(json["created_date"]),
-        updatedDate: DateTime.parse(json["updated_date"]),
-        v: json["__v"],
+        createdDate: json["created_date"],
+        updatedDate: json["updated_date"],
         locations: List<dynamic>.from(json["locations"].map((x) => x)),
       );
 
@@ -79,14 +76,13 @@ class OTREventModel {
         "has_special_badge": hasSpecialBadge,
         "_id": id,
         "address_id": addressId,
-        "otr_end_date": otrEndDate.toIso8601String(),
+        "otr_end_date": otrEndDate,
         "participant_count": participantCount,
         "max_participant": maxParticipant,
         "mode": mode,
         "cost": cost,
-        "created_date": createdDate.toIso8601String(),
-        "updated_date": updatedDate.toIso8601String(),
-        "__v": v,
+        "created_date": createdDate,
+        "updated_date": updatedDate,
         "locations": List<dynamic>.from(locations.map((x) => x)),
       };
 }

@@ -47,6 +47,8 @@ dependencies:
   qrscan: ^0.3.3
   fluttertoast: ^8.2.2
   provider: ^6.0.5
+  qr_flutter: ^4.0.0
+  flutter_barcode_scanner: ^2.0.0
  
 
 

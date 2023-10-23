@@ -2,10 +2,12 @@ import 'dart:convert';
 import 'dart:developer';
 import 'dart:isolate';
 import 'package:app/models/Badge.dart';
+import 'package:app/models/Cart.dart';
 import 'package:app/models/CouponModel.dart';
 import 'package:app/models/OTREvent.dart';
 import 'package:app/models/OTREventModel.dart';
 import 'package:app/models/PartnerModel.dart';
+import 'package:app/models/ProductModel.dart';
 import 'package:app/utils/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
@@ -148,7 +150,6 @@ class ApiService {
 
   Future<List<PartnerModel>> getPartners(String access_token) async {
     try {
-      print("Getting all partners");
       var url = Uri.parse(ApiConstants.baseURL + ApiConstants.partnerEndpoint);
       var response = await http
           .get(url, headers: {'Authorization': 'Bearer ${access_token}'});
@@ -317,7 +318,7 @@ class ApiService {
     }
   }
 
-  Future<List<OTREvent>> getOTREvents(String access_token) async {
+  Future<List<OTREventModel>> getOTREvents(String access_token) async {
     print("Getting all OTR Events");
     var url = Uri.parse(ApiConstants.baseURL + ApiConstants.otrEndpoint);
     var response = await http
@@ -325,22 +326,38 @@ class ApiService {
 
     print(response.statusCode);
     if (response.statusCode == 200) {
-      var data = json.decode(response.body)['data'];
-      print(response.body.toString());
+      print(response.body);
+      final List<dynamic> eventDataList = json.decode(response.body)['data'];
+      final List<OTREventModel> otrEvents = eventDataList
+          .map((eventData) => OTREventModel.fromJson(eventData))
+          .toList();
       // List<OTREvent> events = [];
       // final apiResponse = apiResponseFromJson(response.body.toString());
       // print(apiResponse);
       // print(transaction);
-      return [];
+      return otrEvents;
     } else {
       throw Exception("Failed to fetch OTR Events");
     }
   }
 
-  Future<void> getProducts(String access_token) async {
+  Future<List<ProductModel>> getProducts(String access_token) async {
     print("Getting all products");
     var url = Uri.parse(
         ApiConstants.baseURL + ApiConstants.merchEndpoint + '/product');
+    var response = await http
+        .get(url, headers: {'Authorization': 'Bearer ${access_token}'});
+    print(response.statusCode);
+    if (response.statusCode == 200) {
+      final List<dynamic> jsonData = json.decode(response.body);
+      final List<ProductModel> products =
+          jsonData.map((data) => ProductModel.fromJson(data)).toList();
+      debugPrint(jsonData.toString(), wrapWidth: 1024);
+
+      return products;
+    } else {
+      throw Exception("Error in fetching products");
+    }
   }
 
   Future<void> getAllEvents(String access_token) async {
@@ -458,6 +475,19 @@ class ApiService {
     if (response.statusCode == 201) {
       final jsonData = json.decode(response.body);
       print(jsonData);
+    }
+  }
+
+  Future<void> getUserCart(String access_token) async {
+    print("Getting user cart");
+    var url =
+        Uri.parse(ApiConstants.baseURL + ApiConstants.merchEndpoint + '/cart');
+    var response = await http
+        .get(url, headers: {'Authorization': 'Bearer ${access_token}'});
+    print(response.statusCode);
+    if (response.statusCode == 200) {
+      List<dynamic> jsonData = json.decode(response.body);
+      print("cart : ${jsonData}");
     }
   }
 

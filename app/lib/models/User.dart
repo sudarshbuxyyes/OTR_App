@@ -1,3 +1,6 @@
+import 'package:app/models/Cart.dart';
+import 'package:app/models/ProductModel.dart';
+
 class User {
   String id;
   String username;
@@ -5,6 +8,7 @@ class User {
   int contact_number;
   String password;
   String access_token;
+  late Cart cart;
 
   User({
     required this.id,

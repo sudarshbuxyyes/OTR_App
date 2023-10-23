@@ -1,11 +1,12 @@
 import 'package:app/models/OTREvent.dart';
+import 'package:app/models/OTREventModel.dart';
 import 'package:app/screens/otr/otrEventPage.dart';
 import 'package:app/screens/otr/otrHistoryPage.dart';
 import 'package:app/services/api_services.dart';
 import 'package:app/services/userProvider.dart';
 import 'package:app/utils/Sizer.dart';
 import 'package:app/widgets/NavBar.dart';
-import 'package:app/widgets/otrEventCard.dart';
+import 'package:app/widgets/OTREventCard.dart';
 import 'package:dots_indicator/dots_indicator.dart';
 import 'package:flutter/material.dart';
 import 'package:carousel_slider/carousel_slider.dart';
@@ -180,14 +181,13 @@ class _OTRHomeState extends State<OTRHome> {
   int currentIndex = 0;
   int attended_otr_carousel_ptr = 0;
   int past_otr_carousel_ptr = 0;
-  late Future<List<OTREvent>> _events;
+  late Future<List<OTREventModel>> _events;
 
   @override
   void initState() {
     super.initState();
     final userProvider = Provider.of<UserProvider>(context, listen: false);
     _events = ApiService().getOTREvents(userProvider.user!.access_token);
-    print(_events.toString());
   }
 
   @override
@@ -203,17 +203,17 @@ class _OTRHomeState extends State<OTRHome> {
             bottomNavigationBar: NavBar(
               selected_index: 0,
             ),
-            body: FutureBuilder<List<OTREvent>>(
+            body: FutureBuilder<List<OTREventModel>>(
                 future: _events,
                 builder: (context, snapshot) {
                   if (snapshot.connectionState == ConnectionState.waiting) {
-                    return CircularProgressIndicator();
+                    return Center(child: CircularProgressIndicator());
                   } else if (snapshot.hasError) {
                     return Text('Error: ${snapshot.error}');
                   } else if (!snapshot.hasData) {
                     return Text('No events available.');
                   } else {
-                    final events = snapshot.data!;
+                    final _events = snapshot.data!;
                     return SingleChildScrollView(
                       scrollDirection: Axis.vertical,
                       child: Column(
@@ -279,7 +279,7 @@ class _OTRHomeState extends State<OTRHome> {
                                   color: Colors.grey[300],
                                   borderRadius: BorderRadius.circular(10)),
                               child: Text(
-                                "Placeholder text for OTR description",
+                                "Dummy Desc for OTR Adventures",
                                 style: TextStyle(fontSize: Sizer.fss),
                               )),
                           SizedBox(height: Sizer.sbv * 2),
@@ -311,7 +311,7 @@ class _OTRHomeState extends State<OTRHome> {
                               )),
                           SizedBox(height: Sizer.sbv * 2),
                           OTREventCard(
-                              event: current_otr,
+                              event: _events[0],
                               displayText: true,
                               showCarousel: false),
                           SizedBox(height: Sizer.sbv * 2),
@@ -354,26 +354,27 @@ class _OTRHomeState extends State<OTRHome> {
                                   });
                                 },
                                 enlargeFactor: 0.0),
-                            items: attended_otrs.map((i) {
+                            items: _events.map((i) {
                               return Padding(
                                   padding: EdgeInsets.symmetric(
                                       horizontal: Sizer.sbh * 2),
                                   child: InkWell(
-                                      onTap: () {
-                                        Navigator.push(
-                                            context,
-                                            MaterialPageRoute(
-                                                builder: (context) =>
-                                                    OTREventPage(event: i)));
-                                      },
-                                      child: OTREventCard(
-                                          event: i,
-                                          displayText: false,
-                                          showCarousel: false)));
+                                    onTap: () {
+                                      Navigator.push(
+                                          context,
+                                          MaterialPageRoute(
+                                              builder: (context) =>
+                                                  OTREventPage(event: i)));
+                                    },
+                                    child: OTREventCard(
+                                        event: i,
+                                        displayText: true,
+                                        showCarousel: false),
+                                  ));
                             }).toList(),
                           ),
                           DotsIndicator(
-                            dotsCount: attended_otrs.length,
+                            dotsCount: _events.length,
                             position: attended_otr_carousel_ptr,
                             decorator: DotsDecorator(
                               activeColor: Colors.orange,
@@ -424,7 +425,7 @@ class _OTRHomeState extends State<OTRHome> {
                                 });
                               },
                             ),
-                            items: past_otrs.map((i) {
+                            items: _events.map((i) {
                               return Builder(
                                 builder: (BuildContext context) {
                                   return Padding(
@@ -432,23 +433,23 @@ class _OTRHomeState extends State<OTRHome> {
                                           horizontal: Sizer.sbh * 2),
                                       child: InkWell(
                                           onTap: () {
-                                            Navigator.push(
-                                                context,
-                                                MaterialPageRoute(
-                                                    builder: (context) =>
-                                                        OTREventPage(
-                                                            event: i)));
+                                            // Navigator.push(
+                                            //     context,
+                                            //     MaterialPageRoute(
+                                            //         builder: (context) =>
+                                            //             OTREventPage(
+                                            //                 event: i)));
                                           },
                                           child: OTREventCard(
                                               event: i,
-                                              displayText: false,
+                                              displayText: true,
                                               showCarousel: false)));
                                 },
                               );
                             }).toList(),
                           ),
                           DotsIndicator(
-                            dotsCount: past_otrs.length,
+                            dotsCount: _events.length,
                             position: past_otr_carousel_ptr,
                             decorator: DotsDecorator(
                               activeColor: Colors.orange,
